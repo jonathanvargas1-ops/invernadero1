@@ -16,15 +16,23 @@ input{
 }
 
 button{
-    display: block;
+display: block;
     margin-top:20px;
-    text-align: center;
+    background-color: #0891b2;
+    color: white;
+    border:none;
+    border-radius: 5px;
+
 }
 
-div{
+.cuadro{
     text-align: center;
     margin-top:70px;
     background:lightgray ;
     padding:20px;
+    margin-left:auto;
+    margin-right:auto;
+    max-width: 430px;
+    border-radius: 20px;
     
 }
