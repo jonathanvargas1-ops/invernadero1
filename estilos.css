@@ -1,8 +1,11 @@
 h1{
-    color: green;
+    color: rgb(106, 77, 23);
     text-align: center;
+    font-size: 60px;
+    
 }
 p{
+    font-size: 20px;
     color : green;
     text-align: center;
 }
@@ -13,6 +16,8 @@ margin-bottom:5px;
 
 input{
     margin-bottom: 10px;
+    border-radius: 5px;
+
 }
 
 button{
@@ -22,17 +27,25 @@ display: block;
     color: white;
     border:none;
     border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
 
 }
 
 .cuadro{
-    text-align: center;
-    margin-top:70px;
+text-align: center;
+margin-top:70px;
     background:lightgray ;
     padding:20px;
     margin-left:auto;
     margin-right:auto;
     max-width: 430px;
     border-radius: 20px;
+    border:2px solid black;
+
     
 }
+body{
+    background-color:rgb(164, 210, 128)
+}
+
