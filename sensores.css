@@ -1,0 +1,19 @@
+h1{
+    font-family:sans-serif;
+
+}
+th{
+    font-family:sans-serif;
+
+}
+body{
+    background-color: rgb(232, 204, 163);
+}
+table{
+    border-collapse: collapse;
+    width: 80%;
+    background-color: rgb(245, 246, 248);
+    border-radius: 10px;
+    
+
+}
