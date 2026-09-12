@@ -1,0 +1,15 @@
+h1 {
+    font-family: sans-serif;
+}
+body {
+    margin: 0;
+    background-color: rgb(251,251,250);
+    
+}
+p{
+    font size: 20px;
+    color: rgb(0, 0, 0);
+    font-family: sans-serif;
+    margin-left: 150px;
+    margin-right: 150px;
+}
