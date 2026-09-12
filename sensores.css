@@ -1,14 +1,19 @@
 h1{
     font-family:sans-serif;
+    margin-bottom:50px;
+    margin-top:50px;
 
 }
 th{
     font-family:sans-serif;
     border:solid;
+    padding:10px;
 
 }
 td{
     background-color: rgb(241, 230, 193);
+    border:solid;
+    padding:20px;
 }
 body{
     background-color: rgb(251, 251, 250);
@@ -17,12 +22,24 @@ body{
 caption{
     font-size: 20px;
     font-family:sans-serif;
-    background-color: rgb(206, 207, 206);
+    background-color: rgb(228, 171, 91);
+    border-radius: 10px;
     
 }
 table{
     border-collapse: collapse;
     width: 80%;
     background-color: rgb(245, 246, 248);
+    text-align:center;
 }
+
+button{
+    font-family:sans-serif;
+    font-size: 18px;
+    margin-top:20px;
+    background-color: rgb(228, 171, 91);
+    border-radius: 10px;
+    cursor:pointer;
+}
+
 
