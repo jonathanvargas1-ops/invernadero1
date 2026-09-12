@@ -13,3 +13,40 @@ p{
     margin-left: 150px;
     margin-right: 150px;
 }
+section{
+    display: flex;
+    min-height: 100vh;
+}
+.cuadroizquierdo{
+    background-color: rgb(246, 245, 243)
+    text-align: left;
+    flex: 1;
+    padding-top: 90px:
+}
+.cuadroizquierdo h1 {
+    color: rgb(0, 0, 0);
+    font-family: sans-serif;
+    font-size: 50px;
+    margin-left: 150px;
+    margin-right: 150px;
+}
+.cuadroderecho {
+    flex: 1;
+    background: lightblue;
+    text-align: left;
+    padding-top: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+form {
+    margin-left: 150px;
+    margin-right: 150px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-family: sans-serif;
+}
