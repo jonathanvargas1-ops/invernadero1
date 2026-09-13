@@ -26,3 +26,40 @@ header {
     align-items: center;
     gap: 15px;
 }
+/* Variables y Modelo de Caja (Mobile First) */
+:root {
+    --color-bg-light: #ffedba;
+    --color-bg-card: #e8cb9a;
+    --color-accent: #d0ab7a;
+    --color-primary: #8e582c;
+    --color-primary-dark: #623307;
+    --color-danger: #c9302c;
+    --color-danger-hover: #ac2925;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+header h1 { 
+    font-size: 22px; 
+    text-align: center; 
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+nav a {
+    color: var(--color-bg-light);
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+}
