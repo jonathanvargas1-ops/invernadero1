@@ -1,0 +1,19 @@
+:root {
+    --color-bg-light: #ffedba;
+    --color-bg-card: #e8cb9a;
+    --color-accent: #d0ab7a;
+    --color-primary: #8e582c;
+    --color-primary-dark: #623307;
+    --color-danger: #c9302c;
+    --color-danger-hover: #ac2925;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-bg-light);
+    color: var(--color-primary-dark);
+}
