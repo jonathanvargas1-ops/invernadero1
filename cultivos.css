@@ -3,14 +3,13 @@ body {
     background-color: rgb(251, 251, 250);
 }
 
-h1 {
+ *{
     font-family: sans-serif;
-}
+ }
 
 p {
     font-size: 20px;
     color: rgb(0, 0, 0);
-    font-family: sans-serif;
     margin-left: 150px;
     margin-right: 150px;
 }
@@ -28,7 +27,6 @@ section {
 }
 .cuadroizquierdo h1 {
     color: rgb(0, 0, 0);
-    font-family: sans-serif;
     font-size: 50px;
     margin-left: 150px;
     margin-right: 150px;
@@ -52,7 +50,6 @@ label {
     display: block;
     margin-top: 10px;
     margin-bottom: 5px;
-    font-family: sans-serif;
 }
 
 input {
@@ -70,7 +67,6 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    font-family: sans-serif;
     width: 100%;
     height: 40px;
 }
@@ -86,12 +82,10 @@ table {
 
 caption {
     font-size: 20px;
-    font-family: sans-serif;
     background-color: rgb(206, 207, 206);
     padding: 8px;
 }
 th {
-    font-family: sans-serif;
     border: solid 1px black;
     padding: 8px;
 }
@@ -100,7 +94,6 @@ td {
     background-color: rgb(241, 230, 193);
     border: solid 1px black;
     padding: 8px;
-    font-family: sans-serif;
 }
 
 img {
@@ -127,12 +120,23 @@ nav ul {
 nav a {
     text-decoration: none;
     color: black;
-    font-family: sans-serif;
     font-weight: bold;
 }
 
 footer {
     text-align: center;
     padding: 20px;
-    font-family: sans-serif;
+}
+@media (max-width: 480px){
+    section{
+        flex-direction: column;
+    }
+    p,form,.cuadroizquierdo h1, nav ul {
+        margin-left: 20px;
+        margin-right: 20px;
+        padding-left:0;
+    }
+    table {
+        width: 100%;
+    }
 }
