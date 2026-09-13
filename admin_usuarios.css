@@ -17,3 +17,12 @@ body {
     background-color: var(--color-bg-light);
     color: var(--color-primary-dark);
 }
+header {
+    background-color: var(--color-primary-dark);
+    color: var(--color-bg-light);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
