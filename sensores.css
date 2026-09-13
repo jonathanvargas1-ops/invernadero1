@@ -11,33 +11,35 @@ th{
 
 }
 td{
-    background-color: rgb(241, 230, 193);
+    background-color: rgb(228, 183, 121);
     border:solid;
     padding:20px;
 }
 body{
-    background-color: rgb(251, 251, 250);
+    background-color: rgb(223, 214, 193);
+    margin:0
 }
 
 caption{
     font-size: 20px;
     font-family:sans-serif;
-    background-color: rgb(228, 171, 91);
+    background-color:#d67412f9;
     border-radius: 10px;
     
 }
 table{
     border-collapse: collapse;
-    width: 80%;
-    background-color: rgb(245, 246, 248);
+    width: 100%;
+    background-color: rgb(248, 247, 245);
     text-align:center;
+    font-family: sans-serif;
 }
 
 button{
     font-family:sans-serif;
     font-size: 18px;
     margin-top:20px;
-    background-color: rgb(228, 171, 91);
+    background-color: #f0caa5f9;
     border-radius: 10px;
     cursor:pointer;
 }
