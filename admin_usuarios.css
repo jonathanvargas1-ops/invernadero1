@@ -63,3 +63,22 @@ nav a {
     padding: 10px;
     border-radius: 4px;
 }
+main {
+    padding: 20px 10px;
+    display: grid;
+    grid-template-columns: minmax(280px, 1000px);
+    justify-content: center;
+}
+
+section {
+    background-color: var(--color-bg-card);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+section h2 { 
+    border-bottom: 2px solid var(--color-primary); 
+    margin-bottom: 15px; 
+    padding-bottom: 10px; 
+}
+section p { margin-bottom: 20px; }
