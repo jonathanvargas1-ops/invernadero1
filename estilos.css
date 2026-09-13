@@ -80,6 +80,14 @@ height: 100%;
 border-radius: 5px;
 }
 
-
-
+@media(max-width:480px)
+{
+    section{
+flex-direction: column;
+}
+form,.cuadroizquierdo h1,p {
+    margin-left:5px;
+    margin-right:5px;
+  }
+}
 
