@@ -100,7 +100,21 @@ footer {
     background-color: #f0caa5f9;
     margin-top: 40px;
 }
+.nav-admin {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+}
 
+.nav-admin a {
+    text-decoration: none;
+    background-color: #f0caa5f9;
+    color: black;
+    padding: 10px 20px;
+    border: solid black;
+    border-radius: 5px;
+    font-family: sans-serif;
+}
 @media (max-width: 480px) {
     main {
         padding: 20px;
