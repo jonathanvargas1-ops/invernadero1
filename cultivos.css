@@ -149,9 +149,7 @@ footer {
     }
 
     p,
-    .cuadroizquierdo h1,
-    form,
-    table {
+    .cuadroizquierdo h1,form,table {
         margin-left: 20px;
         margin-right: 20px;
     }
