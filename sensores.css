@@ -43,28 +43,6 @@ button{
     border-radius: 10px;
     cursor:pointer;
 }
-header{
-    background-color: #d67412f9;
-    padding: 15px 40px;
-    border-bottom: 1px solid #d67412f9;
-    font-family: sans-serif;
-}
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    margin: 0;
-    padding:0;
-}
-nav a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-}
-
-section{
-    margin-top:90px;
-}
 
 header {
     background-color: #f0caa5f9;
@@ -150,7 +128,9 @@ footer {
 .filtro button {
     margin-top: 0;
 }
-
+td button {
+    margin: 0 5px;
+}
 @media(max-width:480px){
     table{
         width:100%;
