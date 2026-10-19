@@ -12,6 +12,16 @@
 
 <body>
 
+    <header>
+          <nav>
+        <ul>
+            <li><a href="invernadero.html">Invernadero</a></li>
+            <li><a href="cultivos.html">Cultivos</a></li>
+            <li><a href="login.html">Cerrar sesión</a></li>
+        </ul>
+    </nav>
+    </header>
+
     <main> 
 <h1>
     Mis sensores 
@@ -23,19 +33,81 @@
 
     <th scope="col">Tipo</th> 
    <th scope="col">Estado</th> 
-   <th scope="col">Accion</th>
+   <th scope="col">Acciones</th>
     </tr>
         </thead>
 
-        <tbody>
-            <tr> <td>Temperatura</td> <td>activo</td> <td><button>editar</button></td> </tr>
-            <tr> <td>humedad </td> <td>activo</td> <td><button>editar</button></td> </tr>
-            <tr> <td>luz</td> <td>activo</td> <td><button>editar</button></td> </tr>
-            <tr> <td>co2</td> <td>activo</td> <td><button>editar</button></td> </tr>
+              <tbody>
+            <tr> <td>Temperatura</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
+            <tr> <td>humedad</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
+            <tr> <td>luz</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
+            <tr> <td>co2</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
         </tbody>
         
     </table>
     <button>añadir </button>
+
+
+    <section>
+        <h2>Registros históricos</h2>
+                <form class="filtro">
+            <label for="desde">Desde:</label>
+            <input type="date" id="desde" name="desde">
+
+            <label for="hasta">Hasta:</label>
+            <input type="date" id="hasta" name="hasta">
+
+            <button type="submit">Filtrar</button>
+        </form>
+
+        <table>
+            <caption>Lecturas de los sensores</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Sensor</th>
+                    <th scope="col">Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr> <td>18-10-2026 10:00</td> <td>Temperatura</td> <td>24 °C</td> </tr>
+                <tr> <td>18-10-2026 10:00</td> <td>Humedad</td> <td>65 %</td> </tr>
+                <tr> <td>18-10-2026 14:00</td> <td>Temperatura</td> <td>28 °C</td> </tr>
+                <tr> <td>18-10-2026 14:00</td> <td>Humedad</td> <td>58 %</td> </tr>
+                <tr> <td>19-10-2026 10:00</td> <td>Luz</td> <td>820 lux</td> </tr>
+                <tr> <td>19-10-2026 10:00</td> <td>CO2</td> <td>410 ppm</td> </tr>
+            </tbody>
+        </table>
+    </section>
+
+        <section>
+        <h2>Grafico de lecturas</h2>
+
+        <label for="tipo-sensor">Sensor:</label>
+        <select id="tipo-sensor" name="tipo-sensor">
+            <option>Temperatura</option>
+            <option>Humedad</option>
+            <option>Luz</option>
+            <option>CO2</option>
+        </select>
+
+        <div class="grafico">
+            <div class="barra" style="height: 60%">22°</div>
+            <div class="barra" style="height: 75%">26°</div>
+            <div class="barra" style="height: 85%">28°</div>
+            <div class="barra" style="height: 70%">25°</div>
+            <div class="barra" style="height: 90%">30°</div>
+        </div>
+
+        <div class="dias">
+            <span>Lun</span>
+            <span>Mar</span>
+            <span>Mié</span>
+            <span>Jue</span>
+            <span>Vie</span>
+        </div>
+    </section>
+
  </main>
  <footer>
     <p>&copy; Mi invernadero. Desarrollo Web</p>
