@@ -1,9 +1,8 @@
 .cuadroizquierdo h1{
-    color: rgb(0, 0, 0);
+    color: rgb(36, 82, 64);
     font-family:sans-serif;
     font-size: 50px;
-    margin-left: 150px;
-    margin-right: 150px;
+    margin: 0;
 }
     
 
@@ -11,8 +10,7 @@ p{
     font-size: 20px;
     color : rgb(0, 0, 0);
     font-family:sans-serif;
-    margin-left: 150px;
-    margin-right: 150px;
+    margin: 10px 0 0 0;
 }
    
 
@@ -26,15 +24,16 @@ input{
     margin-bottom: 10px;
     width:100%;
     height:30px;
+    box-sizing: border-box;
 }
 
 button{
 display: block;
     margin-top:30px;
-    background-color: #f0caa5f9;
-    color: rgb(0, 0, 0);
-    border:solid black;
-    border-radius: 5px;
+    background-color: rgb(36, 82, 64);
+    color: white;
+    border:none;
+    border-radius: 25px;
     cursor: pointer;
     font-size: 16px;
     font-family:sans-serif;
@@ -44,11 +43,12 @@ display: block;
 }
 
 .cuadroizquierdo{
-background:rgb(246, 245, 243) ;
+background: rgb(214, 226, 210);
     text-align:left;
     flex:1;
-    padding-top:90px;
-    
+    padding-top:20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .cuadroderecho{
@@ -69,8 +69,7 @@ body{
     margin:0;
 }
 form{
-    margin-left: 150px;
-    margin-right: 150px;
+    margin: 0;
 }
 
 img{
@@ -78,6 +77,41 @@ object-fit: cover;
 width: 100%;
 height: 100%;
 border-radius: 5px;
+}
+
+.tarjeta{
+    background-color: rgb(247, 246, 241);
+    margin: auto 60px;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(6, 6, 6, 0.15);
+}
+
+header{
+    margin-left: 30px;
+    margin-bottom: 20px;
+    font-family: sans-serif;
+}
+
+.cuadroizquierdo header h1{
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.acceso-admin p{
+    font-size: 14px;
+    text-align: center;
+    margin: 20px 0 0 0;
+}
+    footer{
+    margin-left: 30px;
+    padding: 20px 0;
+    font-family: sans-serif;
+}
+
+footer p{
+    margin: 0;
+    font-size: 13px;
 }
 
 @media(max-width:480px)

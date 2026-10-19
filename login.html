@@ -14,9 +14,19 @@
 
     <body>
 
+       
+
+
        <main> 
         <section> 
    <div class="cuadroizquierdo"> 
+
+     <header>
+            <h1>Mi invernadero</h1>
+        </header>
+
+    <div class=" tarjeta">
+
       <h1> Bienvenido  </h1>
       <p>iniciar sesion para continuar</p>
    
@@ -26,18 +36,31 @@
      <input 
      id= "correo" 
      type= "email"
-     name= "correo" required>
+     name= "correo"
+     placeholder= "Ingresa tu correo electronico"
+     required>
 
      <label for="contraseña">Contraseña:</label>
      <input
      id="contraseña"
      type="password"
      name="contrasña"
+     placeholder= "Ingresa tu contraseña"
      required>
 
-      <button type="submit">inciar sesion</button>
+         <button type="submit">Iniciar sesión</button>
+
+      <nav class="acceso-admin">
+          <p>¿Eres administrador? <a href="admin_usuarios.html">Ingresa aquí</a></p>
+      </nav>
 
        </form>
+       </div>
+
+       <footer>
+        <p>&copy; Mi invernadero. Desarrollo Web</p>
+    </footer>
+
 
       </div>
 
@@ -50,6 +73,7 @@
 
         </main>
 
+            
     </body>
 
 </html>
