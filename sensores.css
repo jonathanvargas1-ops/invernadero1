@@ -64,6 +64,9 @@ nav a {
     color: black;
     font-weight: bold;
 }
+nav a.activo {
+    border-bottom: 2px solid black;
+}
 
 main {
     padding: 0 40px 40px 40px;
