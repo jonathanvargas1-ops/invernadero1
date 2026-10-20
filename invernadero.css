@@ -26,6 +26,9 @@ nav ul {
     margin: 0;
     padding: 0;
 }
+nav a.activo {
+    border-bottom: 2px solid black;
+}
 
 nav a {
     text-decoration: none;
