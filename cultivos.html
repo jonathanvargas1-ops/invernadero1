@@ -12,6 +12,7 @@
     <nav>
         <ul>
         <li><a href="invernadero.html">Invernadero</a></li>
+        <li><a href="cultivos.html" class="activo">Cultivos</a></li>
         <li><a href="sensores.html">Sensores</a></li>
         <li><a href="login.html">Cerrar sesión</a></li>
         </ul>
@@ -21,7 +22,7 @@
     <section>
         <div class= "cuadroizquierdo">
             
-            <p> Cultivos disponibles en el invernadero</p>
+            <h3> Cultivos disponibles en el invernadero</h3>
             <div class= "busqueda-cultivos">
                 <label for="filtro-cultivo">Filtrar por tipo/estado:</label>
                 <input type="text" id="filtro-cultivo" placeholder="Ingrese tipo o estado">
@@ -40,7 +41,10 @@
                             <td>Tomate </td>
                             <td>Hortaliza</td>
                             <td>En crecimiento</td>
-                            <td><button>editar</button> <button>eliminar</button></td>
+                            <td>
+                                <button class="btn-tabla">editar</button> 
+                                <button class="btn-tabla">eliminar</button>
+                            </td>
 
                         </tr>
                         <tr>
@@ -48,8 +52,8 @@
                             <td>Tuberculo</td>
                             <td>Listo para cosecha</td>
                             <td>
-                                <button class="editar" type="button" onclick="editarCultivo(this)">Editar</button>
-                                <button class="eliminar" type="button" onclick="eliminarCultivo(this)">Eliminar</button>
+                                <button class="btn-tabla">editar</button>
+                                <button class="btn-tabla">eliminar</button>
                             </td>
                         </tr>
                     </tbody>
