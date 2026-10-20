@@ -59,7 +59,16 @@ article {
     margin: 10px 0 0 0;
     color: rgb(0,0,0);
 
- }
+
+}
+footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid black;
+    background-color: #f0caa5f9;
+    font-family: sans-serif;
+}
+
  @media (max-width: 480px) {
     nav ul {
         flex-direction: column;
