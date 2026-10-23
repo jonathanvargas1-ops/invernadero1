@@ -15,19 +15,19 @@ function cultivosController(cultivoService) {
         editandoEstado: '',
         
         async init() {
-            await this.listarCultivos();
+            await this.cargarCultivos();
         },
        async cargarCultivos() {
         this.cargando = true;
         this.error = null;
         try {
-            if (this.filtro.trim() === '') {
-                this.cultivos = await cultivoService.filrar(this.filtro);
+            if (this.filtro.trim() !== '') {
+                this.cultivos = await cultivoService.filtrar(this.filtro);
              }
              else {
                 this.cultivos = await cultivoService.obtenerTodos();
             }
-        } 
+        }
         catch (error) {
             this.error = 'Error al cargar los cultivos: ' + error.message;
         } finally {
@@ -37,7 +37,7 @@ function cultivosController(cultivoService) {
     async agregarCultivo() {
         this.error = null;
         try {
-            await cultivoservice.agregarCultivo({
+            await cultivoService.agregarCultivo({
                 nombre: this.nuevoNombre,
                 tipo: this.nuevoTipo,
                 estado: this.nuevoEstado
@@ -46,14 +46,15 @@ function cultivosController(cultivoService) {
             this.nuevoTipo = '';
             this.nuevoEstado = '';
             await this.cargarCultivos();
-        },
-        cancelar() {
-            this.editandoCultivo = null;
-        },
+        }
+        catch (error) {
+            this.error = 'Error al agregar el cultivo: ' + error.message;
+        }
+    },
         async guardarEdicion() {
             this.error = null;
             try {
-                await cutlvivoservice.actualizarcutvico({
+                await cultivoService.actualizarCultivo({
                     id: this.editandoCultivo.id,
                     nombre: this.editandoCultivo.nombre,
                     tipo: this.editandoCultivo.tipo,
@@ -68,7 +69,7 @@ function cultivosController(cultivoService) {
         async eliminarCultivo(id) {
             this.error = null;
             try {
-                await cultivoservice.eliminarCultivo(id);
+                await cultivoService.eliminarCultivo(id);
                 await this.cargarCultivos();
             } 
             catch (error) {
@@ -79,4 +80,4 @@ function cultivosController(cultivoService) {
                 await this.cargarCultivos();
                 }
             };
-        }
+        
