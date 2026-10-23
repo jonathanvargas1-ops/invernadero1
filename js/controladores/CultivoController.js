@@ -37,7 +37,7 @@ function cultivosController(cultivoService) {
     async agregarCultivo() {
         this.error = null;
         try {
-            await cultivoService.agregarCultivo({
+            await cultivoService.crearCultivo({
                 nombre: this.nuevoNombre,
                 tipo: this.nuevoTipo,
                 estado: this.nuevoEstado
@@ -51,7 +51,14 @@ function cultivosController(cultivoService) {
             this.error = 'Error al agregar el cultivo: ' + error.message;
         }
     },
+    iniciarEdicion(cultivo) {
+        this.editandoCultivo = { ...cultivo };
+    },
+    cancelar() {
+        this.editandoCultivo = null;
+    },
         async guardarEdicion() {
+            if (!this.editandoCultivo) return;
             this.error = null;
             try {
                 await cultivoService.actualizarCultivo({
@@ -80,4 +87,4 @@ function cultivosController(cultivoService) {
                 await this.cargarCultivos();
                 }
             };
-        
+}
