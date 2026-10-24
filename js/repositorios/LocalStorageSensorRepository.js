@@ -9,6 +9,14 @@ class LocalStorageSensorRepository extends SensorRepository {
     constructor() {
         super();
         this.key = 'sensores';
+
+        /* lista de ejemplos para tener daotos de base  */
+        this.ejemplos = [
+            { id: 1, tipo: 'Temperatura', estado: 'activo' },
+            { id: 2, tipo: 'Humedad', estado: 'activo' },
+            { id: 3, tipo: 'Luz', estado: 'activo' },/* este ejemplo aun no se guarda en local storage, es una variable nomas de momento  */
+            { id: 4, tipo: 'CO2', estado: 'activo' }
+        ];
     }
      async escribir(sensores_lista){
         localStorage.setItem(this.key, JSON.stringify(sensores_lista));
@@ -24,6 +32,9 @@ class LocalStorageSensorRepository extends SensorRepository {
 
     /* aqui pondre lso metodos de cada contrato, como funcionara y esas cosas */
     async listar (){
+        if(await this.leer.getItem(this.key )=== null){
+            await this.escribir(this.ejemplos);
+        }
         return await this.leer();
     }//saca la lista de local estorage oor e metodo leer y asi mostrar la lsta //
 
