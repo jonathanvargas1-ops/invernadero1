@@ -27,28 +27,45 @@
 <h1>
     Mis sensores 
 </h1>
-    <table>
-        <caption>Sensores del invernadero</caption>
-        <thead>
-<tr>
+<div class="sensores-contenedor">
 
-    <th scope="col">Tipo</th> 
-   <th scope="col">Estado</th> 
-   <th scope="col">Acciones</th>
-    </tr>
-        </thead>
+    <div class="sensores-tabla">
+        <table>
+            <caption>Sensores del invernadero</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr> <td>Temperatura</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
+                <tr> <td>humedad</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
+                <tr> <td>luz</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
+                <tr> <td>co2</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
+            </tbody>
+        </table>
+    </div>
 
-              <tbody>
-            <tr> <td>Temperatura</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
-            <tr> <td>humedad</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
-            <tr> <td>luz</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
-            <tr> <td>co2</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
-        </tbody>
-        
-    </table>
-    <button>añadir </button>
+    <div class="cuadro-formulario">
+        <h3>¿Agregar sensor?</h3>
+        <p>Ingresar información del nuevo sensor:</p>
+        <form id="form-sensor" class="formulario-sensor">
+            <label for="tipo">Tipo de sensor:</label>
+            <input type="text" id="tipo" name="tipo" required>
 
+            <label for="estado">Estado del sensor:</label>
+            <select id="estado" name="estado" required>
+                <option value="activo">activo</option>
+                <option value="inactivo">inactivo</option>
+            </select>
 
+            <button type="submit">Añadir sensor</button>
+        </form>
+    </div>
+
+</div>
     <section>
         <h2>Registros históricos</h2>
                 <form class="filtro">
