@@ -5,7 +5,7 @@ function lecturacontroller(servicio){
         lista_lecturas:[],
         desde:'',
         hasta:'',
-        tipo:elegido,
+        tipo_elegido:'Temperatura',
         lista_graficos:[],
 
         async cargar_lectura(){
@@ -58,12 +58,28 @@ function lecturacontroller(servicio){
             return !this.showLoading  && !this.showError && this.lista_graficos.length=== 0;
        },
 
+       async filtrar(){
+        this.showError=null;
+        this.showLoading=true;
+        try{
+            this.lista_lecturas= await servicio.sensorporfecha(this.desde, this.hasta);
+            
+        }catch(errorparametro){
+            this.showError=errorparametro.message;
+
+        }{
+            this.showLoading=false;
+        }
+    },
+    async limpiar_filtro(){
+        this.desde='';
+        this.hasta='';
+        await this.cargar_lectura();
+    },
+
+
+
+       };
+
     
-
-
-
-
-
-    };
-
-}
+    }
