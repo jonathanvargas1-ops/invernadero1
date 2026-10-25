@@ -61,19 +61,19 @@
     </div>
 
     <div class="cuadro-formulario">
-        <h3>¿Agregar sensor?</h3>
+        <h3 x-text="titulo_formulario()"> </h3>
         <p>Ingresar información del nuevo sensor:</p>
-        <form id="form-sensor" class="formulario-sensor">
+        <form id="form-sensor" class="formulario-sensor" @submit.prevent="enviar_formulario()">
             <label for="tipo">Tipo de sensor:</label>
-            <input type="text" id="tipo" name="tipo" required>
+            <input type="text" id="tipo" name="tipo" x-model="formulario_sensor.tipo" required>
 
             <label for="estado">Estado del sensor:</label>
-            <select id="estado" name="estado" required>
+            <select id="estado" name="estado" x-model="formulario_sensor.estado" required>
                 <option value="activo">activo</option>
                 <option value="inactivo">inactivo</option>
             </select>
 
-            <button type="submit">Añadir sensor</button>
+            <button type="submit" x-text="texto_boton()"> </button>
             <button type="button" x-show="id_editado !== null" @click="cancelar_edicion()">cancelar</button>
         </form>
     </div>

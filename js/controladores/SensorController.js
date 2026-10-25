@@ -70,6 +70,7 @@ function sensorController(servicio){
 
     this.formulario_sensor={tipo:'',estado:'activo'};
     this.id_editado=null;
+    
     await this.cargar_sensores();
 
             }catch(errorparametro){
@@ -105,6 +106,10 @@ function sensorController(servicio){
         },
         hay_sensores() {
     return !this.showLoading && this.lista_sensores.length > 0;
+},
+texto_boton(){
+    if (this.id_editado === null) { return 'Añadir sensor'; }
+    return 'Guardar cambios';
 }
     }
 }
