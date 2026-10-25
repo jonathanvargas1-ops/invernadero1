@@ -27,10 +27,15 @@
 <h1>
     Mis sensores 
 </h1>
-<div class="sensores-contenedor">
+<div class="sensores-contenedor" x-data="sensores">
+
 
     <div class="sensores-tabla">
-        <table>
+        <p x-show= "showLoading">cargando sensores</p>
+        <p x-show= "showError" x-text='showError'> </p>
+        <p x-show="!showLoading && !showError && lista_sensores.length === 0"> no hay sensores disponibles</p>
+
+        <table x-show="hay_sensores()">
             <caption>Sensores del invernadero</caption>
             <thead>
                 <tr>
@@ -40,10 +45,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr> <td>Temperatura</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
-                <tr> <td>humedad</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
-                <tr> <td>luz</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
-                <tr> <td>co2</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
+                 <template x-for="sensor in lista_sensores" :key="sensor.id">
+                    <tr>
+        <td x-text="sensor.tipo"></td>
+        <td x-text="sensor.estado"></td>
+        <td>
+            <button @click="se_empieza_edicion(sensor)">editar</button>
+            <button @click="eliminar_sensor(sensor.id)">eliminar</button>
+        </td>
+    </tr>
+
+    </template>
             </tbody>
         </table>
     </div>
@@ -62,6 +74,7 @@
             </select>
 
             <button type="submit">Añadir sensor</button>
+            <button type="button" x-show="id_editado !== null" @click="cancelar_edicion()">cancelar</button>
         </form>
     </div>
 

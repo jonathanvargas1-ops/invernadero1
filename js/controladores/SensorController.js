@@ -102,7 +102,10 @@ function sensorController(servicio){
                 return '¿Agregar sensor?';
             }
             return 'Editar sensor';
-        }
+        },
+        hay_sensores() {
+    return !this.showLoading && this.lista_sensores.length > 0;
+}
     }
 }
 
