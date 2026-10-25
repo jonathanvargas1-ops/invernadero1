@@ -32,7 +32,7 @@ class LocalStorageSensorRepository extends SensorRepository {
 
     /* aqui pondre lso metodos de cada contrato, como funcionara y esas cosas */
     async listar (){
-        if(await this.leer.getItem(this.key )=== null){
+       if(localStorage.getItem(this.key) === null){   
             await this.escribir(this.ejemplos);
         }
         return await this.leer();
@@ -54,7 +54,7 @@ class LocalStorageSensorRepository extends SensorRepository {
         await this.escribir(sensores_que_quedan);
     }
 
-    /* para sacar fulter , para modificar find , cada uno para el caso que corresponda  */
+    /* para sacar filter , para modificar find , cada uno para el caso que corresponda  */
     async editar(sensor_editar){
         const sensores_lista = await this.leer();
         const sensor_a_editar =sensores_lista.find(sensor =>sensor.id === sensor_editar.id);
