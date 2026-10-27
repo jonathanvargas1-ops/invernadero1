@@ -86,7 +86,8 @@
                     <button type="submit">Agregar Cultivo</button>
                 </form>
             </div>
-            <div x-show="editandoCultivo">
+            <template x-if="editandoCultivo">
+            <div>
                 <h3>Editar cultivo</h3>
                 <p>Modificar información del cultivo seleccionado:</p>
                 <form @submit.prevent="guardarEdicion()">
@@ -98,12 +99,13 @@
 
                     <label>Estado del cultivo:</label>
                     <input type="text" x-model="editandoCultivo.estado" required>
-            <div class="acciones"></div>
+            <div class="acciones">
                     <button type="submit">Guardar Cambios</button>
                     <button type="button" @click="cancelar()">Cancelar</button>
                   </div>
                 </form>
             </div>
+          </template>
         </div>
     </section>
 </main>
