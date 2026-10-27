@@ -2,10 +2,9 @@ class LocalStorageCultivoRepository extends CultivoRepository {
     constructor() {
         super();
         this.clave = 'cultivos';
-        this._inicializar();
     }
 
-    _inicializar() {
+    async _asegurarInicializacion() {
         const guardado = localStorage.getItem(this.clave);
         if (!guardado) {
             const ejemplos = [
@@ -14,8 +13,10 @@ class LocalStorageCultivoRepository extends CultivoRepository {
             ];
             localStorage.setItem(this.clave, JSON.stringify(ejemplos));
         }
+
     }
     async obtenerTodos() {
+        await this._asegurarInicializacion();
         const guardado = localStorage.getItem(this.clave);
         return guardado ? JSON.parse(guardado) : [];
     }

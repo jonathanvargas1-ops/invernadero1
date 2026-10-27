@@ -13,12 +13,12 @@ class CultivoService {
         }
         return await this.cultivoRepository.obtenerPorId(id);
     }
-    async filtrar(criterios) {
+    async obtenerCultivos(filtro ='') {
         const todos = await this.cultivoRepository.obtenerTodos();
-        if (!criterios || criterios.trim() === '') {
+        if (!filtro || filtro.trim() === '') {
             return todos;
         }
-        const termino = criterios.trim().toLowerCase();
+        const termino = filtro.trim().toLowerCase();
         return todos.filter(cultivo => cultivo.nombre.toLowerCase().includes(termino) || cultivo.tipo && cultivo.tipo.toLowerCase().includes(termino) || cultivo.estado && cultivo.estado.toLowerCase().includes(termino));
     }
 
@@ -44,7 +44,7 @@ class CultivoService {
             nombre: datosCultivo.nombre.trim(),
             tipo: datosCultivo.tipo.trim(),
             estado: datosCultivo.estado.trim()
-        })
+        });
     }
     async eliminarCultivo(id) {
         if (!id) {
