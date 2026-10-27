@@ -27,4 +27,10 @@ class LocalStorageUsuarioRepository extends UsuarioRepository {
         localStorage.setItem(this.clave, JSON.stringify(usuarios));
         return true;
     }
+    async editar(usuarioEditado) {
+        let usuarios = await this.listar();
+        usuarios = usuarios.map(u => u.id === usuarioEditado.id ? usuarioEditado : u);
+        localStorage.setItem(this.clave, JSON.stringify(usuarios));
+        return true;
+    }
 }
