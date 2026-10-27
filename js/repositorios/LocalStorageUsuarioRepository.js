@@ -20,4 +20,11 @@ class LocalStorageUsuarioRepository extends UsuarioRepository {
         
         return usuarios;
     }
+    async crear(usuario) {
+        const usuarios = await this.listar();
+        usuario.id = Date.now();
+        usuarios.push(usuario);
+        localStorage.setItem(this.clave, JSON.stringify(usuarios));
+        return true;
+    }
 }
