@@ -39,7 +39,7 @@ class LocalStorageCultivoRepository extends CultivoRepository {
     }
     async actualizar(cultivo) {
         const todos = await this.obtenerTodos();
-        const index = todos.findIndex(c => c.id === number(cultivo.id));
+        const index = todos.findIndex(c => c.id === Number(cultivo.id));
         if (index === -1) {
             throw new Error('Cultivo no existente');
         }
