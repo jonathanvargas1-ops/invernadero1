@@ -1,11 +1,11 @@
 class InvernaderoService {
-    constructor(InvernaderoService) {
-        this.InvernaderoService = InvernaderoService;
+    constructor(invernaderoRepository) {
+        this.invernaderoRepository = invernaderoRepository;
     }
-    async ObtenerInvernaderos(){
-        return await this.InvernaderoService.listar();
+    async obtenerInvernaderos(){
+        return await this.invernaderoRepository.listar();
     }
-    async ObtenerInvernaderoPrincipal() {
+    async obtenerInvernaderoPrincipal() {
         const lista = await this.invernaderoRepository.listar();
         if (!lista || lista.length === 0) {
             throw new Error('No hay datos del invernadero registrados.');
@@ -57,4 +57,3 @@ class InvernaderoService {
 
 
 
-}
