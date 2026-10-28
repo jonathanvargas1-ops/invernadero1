@@ -1,0 +1,40 @@
+class InvernaderoService {
+    constructor(InvernaderoService) {
+        this.InvernaderoService = InvernaderoService;
+    }
+    async ObtenerInvernaderos(){
+        return await this.InvernaderoService.listar();
+    }
+    async ObtenerInvernaderoPrincipal() {
+        const lista = await this.invernaderoRepository.listar();
+        if (!lista || lista.length === 0) {
+            throw new Error('No hay datos del invernadero registrados.');
+        }
+        return lista;
+    }
+    async crearInvernadero(datos) {
+        if (!datos || !datos.nombre || !datos.nombre.trim()) {
+            throw new Error('El nombre del invernadero es obligatorio.');
+    }
+        if (!datos.zona || !datos.zona.trim()) {
+            throw new Error('La zona del invernadero es obligatoria.');
+    }
+        if (!datos.direccion || !datos.direccion.trim()) {
+            throw new Error('La dirección del invernadero es obligatoria.');
+    }
+        return await this.invernaderoRepository.crear({
+            nombre: datos.nombre.trim(),
+            zona: datos.zona.trim(),
+            direccion: datos.direccion.trim(),
+            estado: datos.estado ? datos.estado.trim() : 'Operativo'
+        });
+    }
+
+
+
+
+
+
+
+
+}
