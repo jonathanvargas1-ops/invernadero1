@@ -2,6 +2,7 @@ function lecturacontroller(servicio){
     return {
         showError:null,
         showLoading:false,
+        showLoadng_grafico:false,
         lista_lecturas:[],
         desde:'',
         hasta:'',
@@ -23,14 +24,14 @@ function lecturacontroller(servicio){
 
         async cargar_graficos(){
              this.showError=null;
-            this.showLoading= true;
+            this.showLoading_grafico= true;
             try{
                 this.lista_graficos= await servicio.sensorportipo(this.tipo_elegido)
             }catch(errorparametro){
                 this.showError= 'no se pudo cargar los datos del grafico'
 
             }{
-                this.showLoading= false;
+                this.showLoading_grafico= false;
             }
 
 
