@@ -110,7 +110,14 @@ function sensorController(servicio){
 texto_boton(){
     if (this.id_editado === null) { return 'Añadir sensor'; }
     return 'Guardar cambios';
-}
+},
+lista_vacia_sensores(){
+    return !this.showLoading && !this.showError && this.lista_sensores.length === 0;
+},
+
+esta_editando(){
+    return this.id_editado !== null;   // la misma comparación, pero acá
+},
     }
 }
 

@@ -2,7 +2,7 @@ function lecturacontroller(servicio){
     return {
         showError:null,
         showLoading:false,
-        showLoadng_grafico:false,
+        showLoading_grafico:false,
         lista_lecturas:[],
         desde:'',
         hasta:'',
@@ -48,7 +48,7 @@ function lecturacontroller(servicio){
 
         },
         hay_grafico(){
-            return !this.showLoading && this.lista_graficos.length>0;
+            return !this.showLoading_grafico && this.lista_graficos.length>0;
         },
 
         lista_vacia_lectura(){
@@ -56,7 +56,7 @@ function lecturacontroller(servicio){
        },
 
        lista_vacia_graficos(){
-            return !this.showLoading  && !this.showError && this.lista_graficos.length=== 0;
+            return !this.showLoading_grafico  && !this.showError && this.lista_graficos.length=== 0;
        },
 
        async filtrar(){

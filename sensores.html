@@ -33,7 +33,7 @@
     <div class="sensores-tabla">
         <p x-show= "showLoading">cargando sensores</p>
         <p x-show= "showError" x-text='showError'> </p>
-        <p x-show="!showLoading && !showError && lista_sensores.length === 0"> no hay sensores disponibles</p>
+        <p x-show="lista_vacia_sensores()">no hay sensores disponibles</p>
 
         <table x-show="hay_sensores()">
             <caption>Sensores del invernadero</caption>
@@ -74,7 +74,7 @@
             </select>
 
             <button type="submit" x-text="texto_boton()"> </button>
-            <button type="button" x-show="id_editado !== null" @click="cancelar_edicion()">cancelar</button>
+            <button type="button" x-show="esta_editando()" @click="cancelar_edicion()">cancelar</button>
         </form>
     </div>
 
@@ -122,7 +122,7 @@
 
     
         <section>
-        <h2>Graficos de lecturas</h2>
+        <h2>Grafico de lecturas</h2>
         <label for="tipo-sensor">Sensor:</label>
         <select id="tipo-sensor" name="tipo-sensor" x-model="tipo_elegido" @change="cargar_graficos()">
             <option value="Temperatura">Temperatura</option>
@@ -131,6 +131,7 @@
             <option value="CO2">CO2</option>
         </select>
 
+        <p x-show="showLoading_grafico">Cargando gráfico</p>
 
         <p x-show="lista_vacia_graficos()">No hay datos para este sensor.</p>
 
