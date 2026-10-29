@@ -27,41 +27,79 @@
 <h1>
     Mis sensores 
 </h1>
-    <table>
-        <caption>Sensores del invernadero</caption>
-        <thead>
-<tr>
+<div class="sensores-contenedor" x-data="sensores">
 
-    <th scope="col">Tipo</th> 
-   <th scope="col">Estado</th> 
-   <th scope="col">Acciones</th>
+
+    <div class="sensores-tabla">
+        <p x-show= "showLoading">cargando sensores</p>
+        <p x-show= "showError" x-text='showError'> </p>
+        <p x-show="lista_vacia_sensores()">no hay sensores disponibles</p>
+
+        <table x-show="hay_sensores()">
+            <caption>Sensores del invernadero</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                 <template x-for="sensor in lista_sensores" :key="sensor.id">
+                    <tr>
+        <td x-text="sensor.tipo"></td>
+        <td x-text="sensor.estado"></td>
+        <td>
+            <button @click="se_empieza_edicion(sensor)">editar</button>
+            <button @click="eliminar_sensor(sensor.id)">eliminar</button>
+        </td>
     </tr>
-        </thead>
 
-              <tbody>
-            <tr> <td>Temperatura</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
-            <tr> <td>humedad</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
-            <tr> <td>luz</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
-            <tr> <td>co2</td> <td>activo</td> <td><button>editar</button> <button>eliminar</button></td> </tr>
-        </tbody>
-        
-    </table>
-    <button>añadir </button>
+    </template>
+            </tbody>
+        </table>
+    </div>
 
+    <div class="cuadro-formulario">
+        <h3 x-text="titulo_formulario()"> </h3>
+        <p>Ingresar información del nuevo sensor:</p>
+        <form id="form-sensor" class="formulario-sensor" @submit.prevent="enviar_formulario()">
+            <label for="tipo">Tipo de sensor:</label>
+            <input type="text" id="tipo" name="tipo" x-model="formulario_sensor.tipo" required>
 
+            <label for="estado">Estado del sensor:</label>
+            <select id="estado" name="estado" x-model="formulario_sensor.estado" required>
+                <option value="activo">activo</option>
+                <option value="inactivo">inactivo</option>
+            </select>
+
+            <button type="submit" x-text="texto_boton()"> </button>
+            <button type="button" x-show="esta_editando()" @click="cancelar_edicion()">cancelar</button>
+        </form>
+    </div>
+
+</div>
+
+<div x-data="lecturas">
     <section>
         <h2>Registros históricos</h2>
-                <form class="filtro">
+                <form class="filtro" @submit.prevent ="filtrar()">
             <label for="desde">Desde:</label>
-            <input type="date" id="desde" name="desde">
+            <input type="date" id="desde" name="desde" x-model="desde">
 
             <label for="hasta">Hasta:</label>
-            <input type="date" id="hasta" name="hasta">
+            <input type="date" id="hasta" name="hasta" x-model="hasta">
 
             <button type="submit">Filtrar</button>
+            <button type="button" @click="limpiar_filtro()">Limpiar</button>
         </form>
 
-        <table>
+         <p x-show="showLoading">Cargando datos</p>
+        <p x-show="showError" x-text="showError"></p>
+        <p x-show="lista_vacia_lectura()">no hay lecturas en esas fechas</p>
+
+
+        <table x-show="hay_lecturas()">
             <caption>Lecturas de los sensores</caption>
             <thead>
                 <tr>
@@ -71,52 +109,78 @@
                 </tr>
             </thead>
             <tbody>
-                <tr> <td>18-10-2026 10:00</td> <td>Temperatura</td> <td>24 °C</td> </tr>
-                <tr> <td>18-10-2026 10:00</td> <td>Humedad</td> <td>65 %</td> </tr>
-                <tr> <td>18-10-2026 14:00</td> <td>Temperatura</td> <td>28 °C</td> </tr>
-                <tr> <td>18-10-2026 14:00</td> <td>Humedad</td> <td>58 %</td> </tr>
-                <tr> <td>19-10-2026 10:00</td> <td>Luz</td> <td>820 lux</td> </tr>
-                <tr> <td>19-10-2026 10:00</td> <td>CO2</td> <td>410 ppm</td> </tr>
+               <template x-for="lectura in lista_lecturas" :key="lectura.id">
+                    <tr>
+                        <td x-text="lectura.fecha"></td>
+                        <td x-text="lectura.sensor"></td>
+                        <td x-text="lectura.valor"></td>
+                    </tr>
+               </template>
             </tbody>
         </table>
     </section>
 
+    
         <section>
-        <h2>Graficos de lecturas</h2>
-
+        <h2>Grafico de lecturas</h2>
         <label for="tipo-sensor">Sensor:</label>
-        <select id="tipo-sensor" name="tipo-sensor">
-            <option>Temperatura</option>
-            <option>Humedad</option>
-            <option>Luz</option>
-            <option>CO2</option>
+        <select id="tipo-sensor" name="tipo-sensor" x-model="tipo_elegido" @change="cargar_graficos()">
+            <option value="Temperatura">Temperatura</option>
+            <option value="Humedad">Humedad</option>
+            <option value="Luz">Luz</option>
+            <option value="CO2">CO2</option>
         </select>
 
-        <div class="grafico">
-            <div class="barra" style="height: 60%">22°</div>
-            <div class="barra" style="height: 75%">26°</div>
-            <div class="barra" style="height: 85%">28°</div>
-            <div class="barra" style="height: 70%">25°</div>
-            <div class="barra" style="height: 90%">30°</div>
-            <div class="barra" style="height: 80%">27°</div>
-            <div class="barra" style="height: 65%">23°</div>
+        <p x-show="showLoading_grafico">Cargando gráfico</p>
+
+        <p x-show="lista_vacia_graficos()">No hay datos para este sensor.</p>
+
+        <div class="grafico" x-show="hay_grafico()">
+
+        <template x-for="lectura in lista_graficos" :key="lectura.id">
+
+        <div class="barra"
+             :style="'height: ' + lectura.valor + '%'"
+             x-text="lectura.valor">
+            </div>
+
+        </template>
+
         </div>
 
-        <div class="dias">
-            <span>Lun</span>
-            <span>Mar</span>
-            <span>Mié</span>
-            <span>Jue</span>
-            <span>Vie</span>
-            <span>Sáb</span>
-            <span>Dom</span>
+        <div class="dias" x-show="hay_grafico()">
+        <template x-for="lectura in lista_graficos" :key="lectura.id">
+        <span x-text="lectura.fecha"></span>
+        </template>
         </div>
+
     </section>
+    </div>
 
  </main>
  <footer>
     <p>&copy; Mi invernadero. Desarrollo Web</p>
 </footer>
+
+<script src="js/repositorios/SensorRepository.js"></script>
+<script src="js/repositorios/LocalStorageSensorRepository.js"></script>
+<script src="js/servicios/SensorService.js"></script>
+
+<!-- script de lectura en esta zona de abajo -->
+
+<script src="js/repositorios/LecturaRepository.js"></script>
+<script src="js/repositorios/LocalStorageLecturaRepository.js"></script>
+<script src="js/servicios/LecturaService.js"></script>
+
+<!-- controladores de sensor y lo de alphine -->
+
+<script src="js/controladores/SensorController.js"></script>
+
+<script src="js/controladores/LecturaController.js"></script> 
+<script src="js/app.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+
 </body>
 
 
