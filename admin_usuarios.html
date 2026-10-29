@@ -5,76 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración de Usuarios</title>
     <link rel="stylesheet" href="admin_usuarios.css">
-
 </head>
 
 <body>
 
     <header>
-
-        <h1>panel de administracion </h1>
-       <nav>
-        <ul>
-            <li><a href="admin_estadistica.html">Estadísticas Globales</a></li>
-            <li><a href="login.html">Cerrar Sesión</a></li>
-        </ul>
-    </nav>
-        
+        <h1>panel de administracion</h1>
+        <nav>
+            <ul>
+                <li><a href="admin_estadistica.html">Estadísticas Globales</a></li>
+                <li><a href="login.html">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
     </header>
 
-
-<main>
+<main x-data="adminUsuarios">
     <section>
-
         <h2>Lista de Usuarios</h2>
-            <p>Selecciona un usuario para ver sus recursos o eliminar su cuenta</p>
+        <p>Selecciona un usuario para ver sus recursos o eliminar su cuenta</p>
 
-        <table>
+        <div x-show="showLoading">
+            <p>Cargando usuarios...</p>
+        </div>
+
+        <div x-show="showError" style="color: red;">
+            <p x-text="showError"></p>
+        </div>
+
+        <div x-show="!showLoading && usuarios.length === 0">
+            <p>No hay usuarios registrados.</p>
+        </div>
+
+        <table x-show="!showLoading && usuarios.length > 0">
             <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template x-for="u in usuarios" :key="u.id">
                     <tr>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Invernadero</th>
-                        <th>Acciones</th>
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-                    <tr>
-                        <td>juan</td>
-                        <td>juan@gmail.com</td>
-                        <td>2</td>
+                        <td x-text="u.nombre"></td>
+                        <td x-text="u.correo"></td>
+                        <td x-text="u.rol"></td>
                         <td>
                             <button type="button">Ver Recursos</button>
-                            <button type="button" class="btn-eliminar">Eliminar</button>
+                            <button type="button" class="btn-eliminar" @click="eliminar(u.id)">Eliminar</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>paco</td>
-                        <td>paco@gmail.com</td>
-                        <td>1</td>
-                        <td>
-                            <button type="button">Ver Recursos</button>
-                            <button type="button" class="btn-eliminar">Eliminar</button>
-                        </td>
-                    </tr>
-                    
-                </tbody>
-            
-            
-            </table>
-
-        </section>
-
+                </template>
+            </tbody>
+        </table>
+    </section>
 </main>
 
     <footer>
         <p>&copy; Mi invernadero. Desarrollo Web</p>
     </footer>
 
+    <script src="js/repositorios/UsuarioRepository.js"></script>
+    <script src="js/repositorios/LocalStorageUsuarioRepository.js"></script>
+    <script src="js/servicios/UsuarioService.js"></script>
+    <script src="js/controladores/adminUsuariosController.js"></script>
+    <script src="js/app.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
-
-
 </html>
