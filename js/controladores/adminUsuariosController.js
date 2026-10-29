@@ -1,51 +1,59 @@
-document.addEventListener('alpine:init', () => {
-    Alpine.data('adminUsuarios', () => ({
+function adminUsuariosController(usuarioService) {
+    return {
         usuarios: [],
-        cargando: false,
-        error: null,
+        showLoading: false,  
+        showError: null,     
         nuevoUsuario: {
             nombre: '',
             correo: '',
             clave: '',
             rol: 'usuario'
         },
+
         async init() {
             await this.cargarUsuarios();
         },
 
         async cargarUsuarios() {
-            this.cargando = true;
-            this.error = null;
+            this.showLoading = true;
+            this.showError = null;
             try {
-                this.usuarios = await window.usuarioService.listarUsuarios();
+                this.usuarios = await usuarioService.listarUsuarios();
             } catch (err) {
-                this.error = 'No se pudieron cargar los usuarios.';
-            } finally {
-                this.cargando = false;
-            }
+                this.showError = 'No se pudieron cargar los usuarios.';
+            } 
+            this.showLoading = false;
         },
 
         async agregar() {
             try {
-                this.error = null;
-                await window.usuarioService.crearUsuario(this.nuevoUsuario);
-              
+                this.showError = null;
+                await usuarioService.crearUsuario(this.nuevoUsuario);
                 this.nuevoUsuario = { nombre: '', correo: '', clave: '', rol: 'usuario' };
-               
                 await this.cargarUsuarios();
             } catch (err) {
-                this.error = err.message;
+                this.showError = err.message;
+            }
+        },
+
+        async editar(usuario) {
+            try {
+                this.showError = null;
+                await usuarioService.editarUsuario(usuario);
+                await this.cargarUsuarios();
+            } catch (err) {
+                this.showError = 'No se pudo editar el usuario.';
             }
         },
 
         async eliminar(id) {
             try {
-                this.error = null;
-                await window.usuarioService.eliminarUsuario(id);
+                this.showError = null;
+                await usuarioService.eliminarUsuario(id);
                 await this.cargarUsuarios();
             } catch (err) {
-                this.error = 'No se pudo eliminar el usuario.';
+                this.showError = 'No se pudo eliminar el usuario.';
             }
         }
-    }));
-});
+    };
+}
