@@ -10,7 +10,7 @@
 
     <header>
         <h1>Panel de Administración</h1>
-                <nav>
+        <nav>
             <ul>
                 <li><a href="admin_usuarios.html">Gestión de Usuarios</a></li>
                 <li><a href="login.html">Cerrar Sesión</a></li>
@@ -18,22 +18,30 @@
         </nav>
     </header>
     
-    <main>
+    <main x-data="adminEstadistica">
         <section>
             <h2>Resumen del Sistema</h2>
 
-            <div>
+            <div x-show="showLoading">
+                <p>Calculando estadísticas...</p>
+            </div>
+
+            <div x-show="showError" style="color: red;">
+                <p x-text="showError"></p>
+            </div>
+
+            <div x-show="!showLoading">
                 <article>
                     <h3>Usuarios Totales</h3>
-                    <p></p>
+                    <p x-text="estadisticas.totalUsuarios"></p>
                 </article>
                 <article>
                     <h3>Invernaderos Activos</h3>
-                    <p></p>
+                    <p x-text="estadisticas.totalCultivos"></p>
                 </article>
                 <article>
                     <h3>Sensores Registrados</h3>
-                    <p></p>
+                    <p x-text="estadisticas.totalSensores"></p>
                 </article>
             </div>
 
@@ -44,9 +52,27 @@
 
         </section>
     </main>
-        <footer>
+
+    <footer>
         <p>&copy; Mi invernadero. Desarrollo Web</p>
     </footer>
+
+    <script src="js/repositorios/UsuarioRepository.js"></script>
+    <script src="js/repositorios/LocalStorageUsuarioRepository.js"></script>
+    <script src="js/servicios/UsuarioService.js"></script>
+    <script src="js/servicios/EstadisticaService.js"></script>
+    <script src="js/controladores/adminEstadisticaController.js"></script>
+    <script src="js/app.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('Service Worker registrado con éxito:', reg.scope))
+        .catch(err => console.log('Error al registrar el Service Worker:', err));
+    });
+  }
+</script>
 
 </body>
 </html>

@@ -15,4 +15,10 @@ document.addEventListener('alpine:init', () => {
     const invernaderoRepository = new LocalStorageInvernaderoRepository();
     const invernaderoService = new InvernaderoService(invernaderoRepository);
     Alpine.data('invernaderoController', () => invernaderoController(invernaderoService, cultivoService));
+
+    const usuarioRepo = new LocalStorageUsuarioRepository();
+    const usuarioService = new UsuarioService(usuarioRepo);
+    const estadisticaService = new EstadisticaService(usuarioRepo, repo_sensores, cultivoRepository);
+    Alpine.data('adminUsuarios', () => adminUsuariosController(usuarioService));
+    Alpine.data('adminEstadistica', () => adminEstadisticaController(estadisticaService));
 });
