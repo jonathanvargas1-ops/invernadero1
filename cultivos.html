@@ -18,16 +18,32 @@
         </ul>
     </nav>
 </header>
-<main>
+<main x-data="cultivosController">
     <h2 class="titulo-pagina">Gestión de cultivos</h2>
+    <div x-show="error" class="mensaje-error">
+        <p x-text="error"></p>
+    </div>
     <section>
         <div class= "cuadroizquierdo">
             <h3> Cultivos disponibles en el invernadero</h3>
             <div class= "busqueda-cultivos">
                 <label for="filtro-cultivo">Filtrar por tipo/estado:</label>
-                <input type="text" id="filtro-cultivo" placeholder="Ingrese tipo o estado">
+                <input 
+                       type="text" 
+                       id="filtro-cultivo" 
+                       placeholder="Ingrese tipo o estado"
+                       x-model="filtro"
+                       @input="filtrarCultivos()"
+                >
             </div>
-            <table>
+            <div x-show="cargando" class="mensaje-carga">
+                <p>Cargando cultivos...</p>
+            </div>
+            <div x-show="!cargando && cultivos.length === 0" class="mensaje-vacio">
+                <p>No hay cultivos disponibles.</p>
+            </div>
+
+            <table x-show="!cargando && cultivos.length > 0">
                 <thead>
                 <tr>
                    <th>Cultivo</th>
@@ -37,52 +53,80 @@
                         </tr>
                     </thead>
                     <tbody id="lista-cultivos">
-                        <tr>
-                            <td>Tomate </td>
-                            <td>Hortaliza</td>
-                            <td>En crecimiento</td>
-                            <td>
-                                <button class="btn-tabla">editar</button> 
-                                <button class="btn-tabla">eliminar</button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>Papa</td>
-                            <td>Tuberculo</td>
-                            <td>Listo para cosecha</td>
-                            <td>
-                                <button class="btn-tabla">editar</button>
-                                <button class="btn-tabla">eliminar</button>
-                            </td>
-                        </tr>
+                        <template x-for="cultivo in cultivos" :key="cultivo.id">
+                            <tr>
+                                <td x-text="cultivo.nombre"></td>
+                                <td x-text="cultivo.tipo"></td>
+                                <td x-text="cultivo.estado"></td>
+                                <td>
+                                    <button class="btn-tabla" @click="iniciarEdicion(cultivo)">editar</button>
+                                    <button class="btn-tabla" @click="eliminarCultivo(cultivo.id)">eliminar</button>
+                                </td>
+                            </tr>
+                        </template>
                     </tbody>
                 </table>
               
             
         </div>
         <div class="cuadroderecho">
+            <div x-show="!editandoCultivo">
+                <h3>¿Agregar cultivo?</h3>
+                <p>Ingresar información del nuevo cultivo:</p>
+                <form id="form-cultivo" @submit.prevent="agregarCultivo()">
+                    <label for="nombre">Nombre del cultivo:</label>
+                    <input type="text" id="nombre" name="nombre" x-model="nuevoNombre" required>
+
+                    <label for="tipo">Tipo de cultivo:</label>
+                    <input type="text" id="tipo" name="tipo" x-model="nuevoTipo" required>
+
+                    <label for="estado">Estado del cultivo:</label>
+                    <input type="text" id="estado" name="estado" x-model="nuevoEstado" required>
+
+                    <button type="submit">Agregar Cultivo</button>
+                </form>
+            </div>
+            <template x-if="editandoCultivo">
             <div>
-            <h3>¿Agregar cultivo?</h3>
-            <p>Ingresar información del nuevo cultivo:</p>
-            <form id="form-cultivo">
-                <label for="nombre">Nombre del cultivo:</label>
-                <input type="text" id="nombre" name="nombre" required>
+                <h3>Editar cultivo</h3>
+                <p>Modificar información del cultivo seleccionado:</p>
+                <form @submit.prevent="guardarEdicion()">
+                    <label>Nombre del cultivo:</label>
+                    <input type="text" x-model="editandoCultivo.nombre" required>
 
-                <label for="tipo">Tipo de cultivo:</label>
-                <input type="text" id="tipo" name="tipo" required>
+                    <label>Tipo de cultivo:</label>
+                    <input type="text" x-model="editandoCultivo.tipo" required>
 
-                <label for="estado">Estado del cultivo:</label>
-                <input type="text" id="estado" name="estado" required>
-
-                <button type="submit">Agregar Cultivo</button>
-            </form>
-             </div>
-             </div>
+                    <label>Estado del cultivo:</label>
+                    <input type="text" x-model="editandoCultivo.estado" required>
+            <div class="acciones">
+                    <button type="submit">Guardar Cambios</button>
+                    <button type="button" @click="cancelar()">Cancelar</button>
+                  </div>
+                </form>
+            </div>
+          </template>
+        </div>
     </section>
 </main>
 <footer>
     <p>&copy; Mi invernadero. Desarrollo Web</p>
 </footer>
+<script src="js/repositorios/CultivoRepository.js"></script>
+<script src="js/repositorios/LocalStorageCultivoRepository.js"></script>
+<script src="js/repositorios/invernaderoRepository.js"></script>
+<script src="js/repositorios/LocalStorageInvernaderoRepository.js"></script>
+
+<script src="js/servicios/CultivoService.js"></script>
+<script src="js/servicios/InvernaderoService.js"></script>
+
+<script src="js/controladores/InvernaderoController.js"></script>
+<script src="js/controladores/CultivoController.js"></script>
+
+<script src="js/app.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </body>
 </html>
+
+                

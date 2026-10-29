@@ -46,7 +46,7 @@ button{
 
 header {
     background-color: #f0caa5f9;
-    padding: 15px 40px;
+    padding: 15px 16px;
     border-bottom: 1px solid black;
     font-family: sans-serif;
 }
@@ -54,7 +54,8 @@ header {
 nav ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
     margin: 0;
     padding: 0;
 }
@@ -69,7 +70,7 @@ nav a.activo {
 }
 
 main {
-    padding: 0 40px 40px 40px;
+    padding: 0 16px 40px 16px;
 }
 
 section {
@@ -86,11 +87,12 @@ select {
 .grafico {
     display: flex;
     align-items: flex-end;
-    gap: 20px;
+    gap: 8px;
     height: 200px;
     border-left: 2px solid black;
     border-bottom: 2px solid black;
-    padding: 0 20px;
+    padding: 0 10px;
+    overflow: hidden; 
 }
 
 .barra {
@@ -100,12 +102,14 @@ select {
     color: white;
     text-align: center;
     padding-top: 5px;
+    max-height: 100%;
 }
 
 .dias {
     display: flex;
-    gap: 20px;
-    padding: 5px 22px;
+    gap: 8px;
+    padding: 5px 12px;
+    font-size: 12px;
 }
 
 .dias span {
@@ -123,6 +127,7 @@ footer {
 
 .filtro {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 10px;
     margin-bottom: 20px;
@@ -134,10 +139,82 @@ footer {
 td button {
     margin: 0 5px;
 }
-@media(max-width:480px){
-    table{
-        width:100%;
+
+
+.sensores-contenedor {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+
+.sensores-tabla {
+    min-width: 0;
+    overflow-x: auto;
+}
+
+
+.cuadro-formulario {
+    background-color: #f0caa5;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    font-family: sans-serif;
+}
+
+.cuadro-formulario h3 {
+    margin: 0 0 8px;
+}
+
+
+.formulario-sensor {
+    display: grid;
+    gap: 8px;
+}
+
+.formulario-sensor input,
+.formulario-sensor select {
+    font-size: 16px;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 0;
+}
+
+.formulario-sensor button {
+    margin-top: 8px;
+    padding: 10px;
+}
+
+@media (min-width: 768px) {
+    .sensores-contenedor {
+        grid-template-columns: 2fr 1fr;
+    }
+
+    header {
+        padding: 15px 40px;
+    }
+     nav ul {
+        gap:20px;
+    }
+
+    main {
+        padding: 0 40px 40px 40px;
+    }
+
+    .grafico {
+        gap: 20px;
+        padding: 0 20px;
+    }
+
+    .dias {
+        gap: 20px;
+        padding:5px 22px;
+        font-size: 16px;
     }
 }
+
+
 
 

@@ -179,3 +179,24 @@ footer p {
         margin: 0 0 6px;
     }
 }
+.mensaje-error {
+    background-color: #ffdddd;
+    color: #a00000;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+.mensaje-carga, .mensaje-vacio {
+    padding: 15px;
+    text-align: center;
+    color: #555; 
+}
+.acciones-formulario {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+.btn-cancelar {
+    background-color: #777777;
+    color: white;
+}
