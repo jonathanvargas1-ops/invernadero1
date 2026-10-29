@@ -67,20 +67,20 @@
                     <section class="info-recursos">
                         <h3>Recursos del invernadero</h3>
                         <div class="recursos">
-                            <article class="cutlivos-cuadro">
+                            <article class="cultivos-cuadro">
                                 <h4>Cultivos</h4>
                                 <p>Hay cultivos disponibles</p>
                                 <a href="cultivos.html">Ver cultivos</a>
                             </article>
-                            <article class="sensores-caudro">
+                            <article class="sensores-cuadro">
                                 <h4>Sensores</h4>
                                 <p>Sensores Activos:</p>
                                 <a href="sensores.html">Ver sensores</a>
-                            </article>"
+                            </article>
                         </div>
                     </section>
 
-                    <section class="resumen-de-activiad">
+                    <section class="resumen-de-actividad">
                         <h3>Resumen de actividad</h3>
                         <div class="resumen">
                             <article class="tarjeta-datos">
@@ -108,7 +108,7 @@
                 <footer>
                     <p>© Mi Invernadero. Desarrollo web.</p>
                 </footer>
-                <script src="js/repositorios/InvernaderoRepository.js"></script>
+                <script src="js/repositorios/invernaderoRepository.js"></script>
                 <script src="js/repositorios/LocalStorageInvernaderoRepository.js"></script>
                 <script src="js/repositorios/CultivoRepository.js"></script>
                 <script src="js/repositorios/LocalStorageCultivoRepository.js"></script>
@@ -116,9 +116,15 @@
                 <script src="js/servicios/InvernaderoService.js"></script>
                 <script src="js/servicios/CultivoService.js"></script>
 
-                <script src="js/controladores/invernaderoController.js"></script>
+                <script src="js/controladores/InvernaderoController.js"></script>
                 <script src="js/app.js"></script>
                 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-       
+                <script>
+                    if ('serviceWorker' in navigator) {
+                        navigator.serviceWorker.register('/sw.js')
+                        .then(reg => console.log('Service Worker registrado:', reg.scope))
+                        .catch(err => console.error('Error en Service Worker:', err));
+                    }
+                </script>
 </body>
 </html>
