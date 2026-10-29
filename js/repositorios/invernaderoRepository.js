@@ -8,7 +8,7 @@ class InvernaderoRepository {
    async editar(invernadero) {
       throw new Error ('No implementado');
    }
-   async Eliminar(id) {
+   async eliminar(id) {
       throw new Error('No implementado');
    }
 }
