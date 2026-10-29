@@ -1,8 +1,8 @@
 .cuadroizquierdo h1{
     color: rgb(120, 75, 45);
     font-family:sans-serif;
-    font-size: 50px;
-    margin: 0;
+    font-size: 36px;
+    margin: 0 5px;
 }
     
 
@@ -10,7 +10,7 @@ p{
     font-size: 20px;
     color : rgb(0, 0, 0);
     font-family:sans-serif;
-    margin: 10px 0 0 0;
+    margin: 10px 5px 0 5px;
 }
    
 
@@ -61,6 +61,7 @@ background:lightblue ;
 
 section{
     display:flex;
+    flex-direction: column;
     min-height: 100vh;
 }
 
@@ -69,7 +70,7 @@ body{
     margin:0;
 }
 form{
-    margin: 0;
+    margin: 0 5px;
 }
 
 img{
@@ -81,8 +82,8 @@ border-radius: 5px;
 
 .tarjeta{
     background-color: rgb(247, 246, 241);
-    margin: auto 60px;
-    padding: 50px;
+    margin: auto 16px;
+    padding: 24px;
     border-radius: 20px;
     box-shadow: 0 8px 25px rgba(6, 6, 6, 0.15);
 }
@@ -114,14 +115,26 @@ footer p{
     font-size: 13px;
 }
 
-@media(max-width:480px)
-{
+@media (min-width: 768px) {
     section{
-flex-direction: column;
-}
-form,.cuadroizquierdo h1,p {
-    margin-left:5px;
-    margin-right:5px;
-  }
+        flex-direction: row;
+    }
+    .cuadroizquierdo h1{
+        font-size: 50px;
+        margin: 0;
+    }
+
+    p{
+        margin: 10px 0 0 0;
+    }
+
+    form{
+        margin: 0;
+    }
+
+    .tarjeta{
+        margin: auto 60px;
+        padding: 50px;
+    }
 }
 
