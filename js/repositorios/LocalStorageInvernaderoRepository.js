@@ -46,7 +46,7 @@ async editar(invernadero) {
     localStorage.setItem(this.clave, JSON.stringify(todos));
     return todos[index];
 }
-async eliminar(id) {
+async Eliminar(id) {
     const todos = await this.listar();
     const filtrados = todos.filter(i => i.id !== Number(id));
     localStorage.setItem(this.clave, JSON.stringify(filtrados));

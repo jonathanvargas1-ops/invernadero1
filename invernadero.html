@@ -32,7 +32,8 @@
                 <div x-show="!cargando && !error && !invernadero" class="estado-vacio">
                      <p>No se encontró información del invernadero registrado.</p>
                 </div>
-                <div x-show="!cargando && !error && invernadero">
+                <template x-if="!cargando && !error && invernadero">
+                    <div>
                     <section class="info-invernadero">
                         <h3>Datos del invernadero</h3>
                         <article class="datos invernadero" x-show="!editando">
@@ -104,6 +105,7 @@
                         </div>
                     </section>
                 </div>
+                </template>
                 </main>
                 <footer>
                     <p>© Mi Invernadero. Desarrollo web.</p>
