@@ -22,4 +22,5 @@ document.addEventListener('alpine:init', () => {
     const estadisticaService = new EstadisticaService(usuarioRepo, repo_sensores, cultivoRepository);
     Alpine.data('adminUsuarios', () => adminUsuariosController(usuarioService));
     Alpine.data('adminEstadistica', () => adminEstadisticaController(estadisticaService));
+    Alpine.data('login',()=>loginController(usuarioService))
 });

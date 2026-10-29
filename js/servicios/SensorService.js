@@ -28,5 +28,11 @@ validar(sensor) {
 
  async eliminar(id) {
     return await this.sensorRepository.eliminar(id);
- }  
+ }
+/* para pestaña de invernadero seccion resumen */
+ async contar_activos(){
+   const lista_sensores = await this.sensorRepository.listar();
+   const sensores_activos= lista_sensores.filter(sensor => sensor.estado==='activo');
+   return sensores_activos.length;
+ }
 }
