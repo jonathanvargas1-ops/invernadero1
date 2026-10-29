@@ -1,4 +1,4 @@
-function filasensorcontroller(){
+function filaSensorController(){
     return{
 confirmando:false,
 
