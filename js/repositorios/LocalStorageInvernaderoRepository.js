@@ -19,7 +19,7 @@ class LocalStorageInvernaderoRepository extends InvernaderoRepository {
 }
 
 async listar() {
-    await this._asegurarinicializacion();
+    await this._asegurarInicializacion();
     const guardado = localStorage.getItem(this.clave);
     return guardado ? JSON.parse(guardado) : [];
 }
