@@ -33,11 +33,13 @@
             <p x-text="showError"></p>
         </div>
 
-        <div x-show="!showLoading && usuarios.length === 0">
+       
+        <div x-show="lista_vacia()">
             <p>No hay usuarios registrados.</p>
         </div>
 
-        <table x-show="!showLoading && usuarios.length > 0">
+       
+        <table x-show="hay_usuarios()">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -48,13 +50,14 @@
             </thead>
             <tbody>
                 <template x-for="u in usuarios" :key="u.id">
-                    <tr>
-                        <td x-text="u.nombre"></td>
-                        <td x-text="u.correo"></td>
-                        <td x-text="u.rol"></td>
+                   
+                    <tr x-data="{ usuario: u }" @eliminar-usuario.window="eliminar($event.detail)">
+                        <td x-text="usuario.nombre"></td>
+                        <td x-text="usuario.correo"></td>
+                        <td x-text="usuario.rol"></td>
                         <td>
                             <button type="button">Ver Recursos</button>
-                            <button type="button" class="btn-eliminar" @click="eliminar(u.id)">Eliminar</button>
+                            <button type="button" class="btn-eliminar" @click="$dispatch('eliminar-usuario', usuario.id)">Eliminar</button>
                         </td>
                     </tr>
                 </template>
@@ -67,13 +70,13 @@
         <p>&copy; Mi invernadero. Desarrollo Web</p>
     </footer>
 
-  <script src="js/repositorios/UsuarioRepository.js"></script>
+<script src="js/repositorios/UsuarioRepository.js"></script>
 <script src="js/repositorios/LocalStorageUsuarioRepository.js"></script>
 <script src="js/servicios/UsuarioService.js"></script>
 <script src="js/servicios/EstadisticaService.js"></script>
 <script src="js/controladores/SensorController.js"></script>
 <script src="js/controladores/FilaSensorController.js"></script>
-<script src="js/controladores/adminEstadisticaController.js"></script>
+<script src="js/controladores/adminUsuariosController.js"></script>
 <script src="js/app.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script>
