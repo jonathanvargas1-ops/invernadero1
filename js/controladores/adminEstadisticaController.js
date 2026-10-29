@@ -7,7 +7,9 @@ function adminEstadisticaController(estadisticaService) {
         },
         showLoading: false,
         showError: null,
-
+       mostrar_estadisticas() {
+            return !this.showLoading;
+        },
         async init() {
             this.showLoading = true;
             this.showError = null;
