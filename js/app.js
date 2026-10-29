@@ -7,6 +7,7 @@ const service_lectura = new LecturaService(repo_lectura);
 document.addEventListener('alpine:init', () => {
     Alpine.data('sensores', () => sensorController(service_sensores));
     Alpine.data('lecturas', () => lecturacontroller(service_lectura));
+    Alpine.data('filaSensor',()=>filaSensorController());
 
     const cultivoRepository = new LocalStorageCultivoRepository();
     const cultivoService = new CultivoService(cultivoRepository);
