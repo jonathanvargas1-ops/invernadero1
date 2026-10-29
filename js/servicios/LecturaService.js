@@ -22,6 +22,24 @@ class LecturaService{
   async listar (){
     return await this.lecturaRepository.listar();
   }
+  /* para seccion e invernadero resumen  */
+  async ultima_lectura(){
+    const lista_lecturas= await this.lecturaRepository.listar();
+    if(lista_lecturas.length=== 0){
+      return null;
+    }
+    let ultimo = lista_lecturas[0];
+    for(const lectura of lista_lecturas){
+      if(lectura.fecha  > ultimo.fecha){
+        ultimo = lectura;
+      }
+    }return ultimo;
+
+  }
+  async total_registro(){
+    const lista_lecturas= await this.lecturaRepository.listar();
+    return lista_lecturas.length;
+  }
 
    }   
 
