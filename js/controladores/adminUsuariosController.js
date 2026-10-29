@@ -10,6 +10,12 @@ function adminUsuariosController(usuarioService) {
             rol: 'usuario'
         },
 
+       lista_vacia() {
+    return !this.showLoading && this.usuarios.length === 0;
+},
+hay_usuarios() {
+    return !this.showLoading && this.usuarios.length > 0;
+},
         async init() {
             await this.cargarUsuarios();
         },
