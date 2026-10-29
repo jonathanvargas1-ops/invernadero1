@@ -1,4 +1,4 @@
-function invernaderoController(invernaderoService, cultivoService = null, sensorService = null) {
+function invernaderoController(invernaderoService, cultivoService = null, sensorService = null, lecturaService = null) {
     return {
         invernadero: null,
         cargando: false,
