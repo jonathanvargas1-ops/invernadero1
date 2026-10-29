@@ -1,23 +1,22 @@
-document.addEventListener('alpine:init', () => {
-    Alpine.data('adminEstadistica', () => ({
+function adminEstadisticaController(estadisticaService) {
+    return {
         estadisticas: {
             totalUsuarios: 0,
             totalSensores: 0,
             totalCultivos: 0
         },
-        cargando: false,
-        error: null,
+        showLoading: false,
+        showError: null,
 
         async init() {
-            this.cargando = true;
-            this.error = null;
+            this.showLoading = true;
+            this.showError = null;
             try {
-                this.estadisticas = await window.estadisticaService.obtenerEstadisticasGlobales();
+                this.estadisticas = await estadisticaService.obtenerEstadisticasGlobales();
             } catch (err) {
-                this.error = 'No se pudieron calcular las estadísticas globales.';
-            } finally {
-                this.cargando = false;
-            }
+                this.showError = 'No se pudieron calcular las estadísticas globales.';
+            } 
+            this.showLoading = false;
         }
-    }));
-});
+    };
+}
