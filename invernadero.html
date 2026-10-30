@@ -8,6 +8,10 @@
         <link rel="manifest" href="manifest.json">
     </head>
     <body>
+         <p class="aviso-sin-conexion" x-data="conexion" x-show="sin_conexion()">
+        Estás sin conexión!!
+           </p>
+
         <header>
             <h1>Mi invernadero</h1>
             <nav>
@@ -193,6 +197,7 @@
     <script src="js/controladores/InvernaderoController.js"></script>
     <script src="js/controladores/adminUsuariosController.js"></script>
     <script src="js/controladores/adminEstadisticaController.js"></script>
+    <script src="js/controladores/conexionController.js"></script>
 
      <script src="js/app.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
