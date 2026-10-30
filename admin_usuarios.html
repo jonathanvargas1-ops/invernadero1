@@ -57,15 +57,23 @@
             <tbody>
                 <template x-for="u in usuarios" :key="u.id">
                    
-                    <tr>
-    <td x-text="u.nombre"></td>
-    <td x-text="u.correo"></td>
-    <td x-text="u.rol"></td>
-    <td>
-        <button type="button" @click="$dispatch('editar-usuario', u)">Editar</button>
-        <button type="button" class="btn-eliminar" @click="$dispatch('eliminar-usuario', u.id)">Eliminar</button>
-    </td>
-</tr>
+                    
+<tr x-data="filaUsuario">
+        <td x-text="u.nombre"></td>
+        <td x-text="u.correo"></td>
+        <td x-text="u.rol"></td>
+        <td>
+            <button type="button" @click="avisar_editar(u)">Editar</button>
+            <button type="button" class="btn-eliminar" @click="preguntar_eliminar()">Eliminar</button>
+
+            <span x-show="confirmando">
+                ¿Seguro?
+                <button type="button" @click="avisar_eliminar(u.id)">sí</button>
+                <button type="button" @click="cancelar_eliminar()">no</button>
+            </span>
+        </td>
+    </tr>
+
                 </template>
             </tbody>
         
@@ -130,6 +138,7 @@
 <script src="js/controladores/adminEstadisticaController.js"></script>
 <script src="js/controladores/LoginController.js"></script>
 <script src="js/controladores/conexionController.js"></script>
+<script src="js/controladores/FilaUsuarioController.js"></script>
 <script src="js/app.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script>
