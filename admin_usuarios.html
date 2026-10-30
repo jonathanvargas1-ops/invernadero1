@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración de Usuarios</title>
     <link rel="stylesheet" href="admin_usuarios.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -19,7 +20,9 @@
         </nav>
     </header>
 
-<main x-data="adminUsuarios">
+<main x-data="adminUsuarios"
+@eliminar-usuario="eliminar($event.detail)"
+      @editar-usuario="se_empieza_edicion($event.detail)">
     <section>
         <h2>Lista de Usuarios</h2>
         <p>Selecciona un usuario para ver sus recursos o eliminar su cuenta</p>
@@ -32,11 +35,13 @@
             <p x-text="showError"></p>
         </div>
 
-        <div x-show="!showLoading && usuarios.length === 0">
+       
+        <div x-show="lista_vacia()">
             <p>No hay usuarios registrados.</p>
         </div>
 
-        <table x-show="!showLoading && usuarios.length > 0">
+       
+        <table x-show="hay_usuarios()">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -47,37 +52,85 @@
             </thead>
             <tbody>
                 <template x-for="u in usuarios" :key="u.id">
+                   
                     <tr>
-                        <td x-text="u.nombre"></td>
-                        <td x-text="u.correo"></td>
-                        <td x-text="u.rol"></td>
-                        <td>
-                            <button type="button">Ver Recursos</button>
-                            <button type="button" class="btn-eliminar" @click="eliminar(u.id)">Eliminar</button>
-                        </td>
-                    </tr>
+    <td x-text="u.nombre"></td>
+    <td x-text="u.correo"></td>
+    <td x-text="u.rol"></td>
+    <td>
+        <button type="button" @click="$dispatch('editar-usuario', u)">Editar</button>
+        <button type="button" class="btn-eliminar" @click="$dispatch('eliminar-usuario', u.id)">Eliminar</button>
+    </td>
+</tr>
                 </template>
             </tbody>
-        </table>
+        
+                </table>
+
+        <div class="cuadro-formulario">
+            <h3 x-text="titulo_formulario()"> </h3>
+            <form @submit.prevent="enviar_formulario()">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" x-model="nuevoUsuario.nombre" required>
+
+                <label for="correo">Correo:</label>
+                <input type="email" id="correo" name="correo" x-model="nuevoUsuario.correo" required>
+
+                <label for="clave">Contraseña:</label>
+                <input type="password" id="clave" name="clave" x-model="nuevoUsuario.clave" required>
+
+                <label for="rol">Rol:</label>
+                <select id="rol" name="rol" x-model="nuevoUsuario.rol" required>
+                    <option value="usuario">usuario</option>
+                    <option value="admin">admin</option>
+                </select>
+
+               <button type="submit" x-text="texto_boton()"></button>
+    <button type="button" x-show="esta_editando()" @click="cancelar_edicion()">Cancelar</button>
+            </form>
+        </div>
+
     </section>
+
 </main>
 
     <footer>
         <p>&copy; Mi invernadero. Desarrollo Web</p>
     </footer>
 
-    <script src="js/repositorios/UsuarioRepository.js"></script>
-    <script src="js/repositorios/LocalStorageUsuarioRepository.js"></script>
-    <script src="js/servicios/UsuarioService.js"></script>
-    <script src="js/controladores/adminUsuariosController.js"></script>
-    <script src="js/app.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<!-- repo -->
+<script src="js/repositorios/SensorRepository.js"></script>
+<script src="js/repositorios/LocalStorageSensorRepository.js"></script>
+<script src="js/repositorios/LecturaRepository.js"></script>
+<script src="js/repositorios/LocalStorageLecturaRepository.js"></script>
+<script src="js/repositorios/CultivoRepository.js"></script>
+<script src="js/repositorios/LocalStorageCultivoRepository.js"></script>
+<script src="js/repositorios/invernaderoRepository.js"></script>
+<script src="js/repositorios/LocalStorageInvernaderoRepository.js"></script>
+<script src="js/repositorios/UsuarioRepository.js"></script>
+<script src="js/repositorios/LocalStorageUsuarioRepository.js"></script>
+<!-- servicios -->
+<script src="js/servicios/SensorService.js"></script>
+<script src="js/servicios/LecturaService.js"></script>
+<script src="js/servicios/CultivoService.js"></script>
+<script src="js/servicios/InvernaderoService.js"></script>
+<script src="js/servicios/UsuarioService.js"></script>
+<script src="js/servicios/EstadisticaService.js"></script>
+<!-- controladores -->
+<script src="js/controladores/SensorController.js"></script>
+<script src="js/controladores/FilaSensorController.js"></script>
+<script src="js/controladores/LecturaController.js"></script>
+<script src="js/controladores/CultivoController.js"></script>
+<script src="js/controladores/InvernaderoController.js"></script>
+<script src="js/controladores/adminUsuariosController.js"></script>
+<script src="js/controladores/adminEstadisticaController.js"></script>
+<script src="js/controladores/LoginController.js"></script>
+<script src="js/app.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js')
-        .then(reg => console.log('Service Worker registrado con éxito:', reg.scope))
-        .catch(err => console.log('Error al registrar el Service Worker:', err));
+      navigator.serviceWorker.register('sw.js');
     });
   }
 </script>
