@@ -24,4 +24,6 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('adminUsuarios', () => adminUsuariosController(usuarioService));
     Alpine.data('adminEstadistica', () => adminEstadisticaController(estadisticaService));
     Alpine.data('login',()=>loginController(usuarioService));
+    Alpine.data('conexion', () => conexionController());
+    
 });
