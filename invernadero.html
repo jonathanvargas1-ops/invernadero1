@@ -5,50 +5,210 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Invernadero</title>
         <link rel="stylesheet" href="invernadero.css">
+        <link rel="manifest" href="manifest.json">
     </head>
     <body>
+         <p class="aviso-sin-conexion" x-data="conexion" x-show="sin_conexion()">
+        Estás sin conexión!!
+           </p>
+
         <header>
-            <h1> Mi invernadero</h1>
-<nav>
-    <ul>
-        <li><a href="invernadero.html">Invernadero</a></li>
-        <li><a href="cultivos.html">Cultivos</a></li>
-        <li><a href="admin_usuarios.html">Administrar Usuarios</a></li>
-        <li><a href="admin_estadistica.html">Administrar Estadísticas</a></li>
-    </ul>
-</nav>
-            </header>
+            <h1>Mi invernadero</h1>
+            <nav>
+                <ul>
+                    <li><a href="invernadero.html" class="activo">Invernadero</a></li>
+                    <li><a href="cultivos.html">Cultivos</a></li>
+                    <li><a href="sensores.html">Sensores</a></li>
+                    <li><a href="login.html">Cerrar sesión</a></li>
+                </ul>
+            </nav>
+        </header>
 
-            <main>
-                <h2>Informacion del invernadero</h2>
+        <main x-data="invernaderoController" 
+              @guardar-invernadero="guardarEdicion($event.detail)"
+              @crear-invernadero="crearInvernadero($event.detail)"
+              @cancelar-edicion="cancelarEdicion()">
+            
+            <h2>Información del invernadero</h2>
 
-                <section class="info-invernadero">
-                    <h3>Datos del invernadero</h3>
-                    <article class="datos invernadero">
-                        <p>Nombre del invernadero: </p>
-                        <p>Zona: </p>
-                        <p>Direccion: </p>
-                        <p>Estado actual: </p>
-                    </article>
-                 </section>
-                 <section class="info-recursos">
-                    <h3>Recursos del invernadero</h3>
-                    <div class="recursos">
-                        <article class="cultivos-cuadro">
-                            <h4>Cultivos</h4>
-                        <p> Hay cultivos disponibles</p>
-                        <a href="cultivos.html">Ver cultivos</a>
-                     </article>
-                     <article class="sensores-cuadro">
-                        <h4>Sensores</h4>
-                        <p>Sensores Activos:</p>
-                        <a href="sensores.html">Ver sensores</a>
-                     </article>
-                    </div>
-                 </section>
-            </main>
-            <footer>
-                <p>&copy;  Mi Invernadero. Desarrollo web.</p>
-            </footer>
-</body>
+            <div x-show="cargando" class="estado-cargando"> 
+                <p>Cargando información...</p>
+            </div>
+
+            <div x-show="error" class="estado-error">   
+                <p x-text="error"></p>
+                <button type="button" @click="cargarDatos()">Reintentar</button>
+            </div>
+
+            <div x-show="estaVacio()" class="estado-vacio">
+                <p>No se encontró información del invernadero registrado.</p>
+                
+                <div x-show="errorAccion" class="estado-error">
+                    <p x-text="errorAccion"></p>
+                </div>
+
+                <template x-if="estaVacio()">
+                    <section class="info-invernadero formulario-registro">
+                        <h3>Registrar Invernadero</h3>
+                        <form x-data="formularioInvernadero()" 
+                              @submit.prevent="$dispatch('crear-invernadero', borrador)">
+                            
+                            <label for="nuevo-nombre">Nombre del invernadero:</label>
+                            <input type="text" id="nuevo-nombre" name="nombre" x-model="borrador.nombre" required>
+                            
+                            <label for="nueva-zona">Zona:</label>
+                            <input type="text" id="nueva-zona" name="zona" x-model="borrador.zona" required>
+                            
+                            <label for="nueva-direccion">Dirección:</label>
+                            <input type="text" id="nueva-direccion" name="direccion" x-model="borrador.direccion" required>
+
+                            <label for="nuevo-estado">Estado actual:</label>
+                            <input type="text" id="nuevo-estado" name="estado" x-model="borrador.estado" required>
+
+                            <div class="acciones">
+                                <button type="submit">Registrar Invernadero</button>
+                            </div>
+                        </form>
+                    </section>
+                </template>
+            </div>
+
+            <template x-if="tieneInvernadero()">
+                <div>
+                    <section class="info-invernadero">
+                        <h3>Datos del invernadero</h3>
+                        
+                        <div x-show="errorAccion" class="estado-error">
+                            <p x-text="errorAccion"></p>
+                        </div>
+
+                        <article class="datos invernadero" x-show="!editando">
+                            <p><strong>Nombre del invernadero:</strong> <span x-text="invernadero.nombre"></span></p>
+                            <p><strong>Zona:</strong> <span x-text="invernadero.zona"></span></p>
+                            <p><strong>Dirección:</strong> <span x-text="invernadero.direccion"></span></p>
+                            <p><strong>Estado actual:</strong> <span x-text="invernadero.estado"></span></p>
+                            <div class="acciones">
+                                <button type="button" @click="iniciarEdicion()">Editar Información</button>
+                                <button type="button" @click="eliminarInvernadero()">Eliminar Invernadero</button>
+                            </div>
+                        </article>
+
+                        <template x-if="editando">
+                            <article class="datos invernadero">
+                                <form x-data="formularioInvernadero(invernadero)" 
+                                      @submit.prevent="$dispatch('guardar-invernadero', borrador)">
+                                    
+                                    <div x-show="errorGuardar" class="estado-error">
+                                        <p x-text="errorGuardar"></p>
+                                    </div>
+                                    
+                                    <label for="nombre">Nombre del invernadero:</label>
+                                    <input type="text" id="nombre" name="nombre" x-model="borrador.nombre" required>
+                                    
+                                    <label for="zona">Zona:</label>
+                                    <input type="text" id="zona" name="zona" x-model="borrador.zona" required>
+                                    
+                                    <label for="direccion">Dirección:</label>
+                                    <input type="text" id="direccion" name="direccion" x-model="borrador.direccion" required>
+
+                                    <label for="estado">Estado actual:</label>
+                                    <input type="text" id="estado" name="estado" x-model="borrador.estado" required>
+                                    
+                                    <div class="acciones">
+                                        <button type="submit">Guardar Cambios</button>
+                                        <button type="button" @click="$dispatch('cancelar-edicion')">Cancelar</button>
+                                    </div>
+                                </form>
+                            </article>
+                        </template>
+                    </section>
+
+                    <section class="info-recursos">
+                        <h3>Recursos del invernadero</h3>
+                        <div class="recursos">
+                            <article class="cultivos-cuadro">
+                                <h4>Cultivos</h4>
+                                <p x-text="textoCultivos()"></p>
+                                <a href="cultivos.html">Ver cultivos</a>
+                            </article>
+                            <article class="sensores-cuadro">
+                                <h4>Sensores</h4>
+                                <p x-text="textoSensores()"></p>
+                                <a href="sensores.html">Ver sensores</a>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section class="resumen-de-actividad">
+                        <h3>Resumen de actividad</h3>
+                        <div class="resumen">
+                            <template x-for="tarjeta in tarjetasResumen()" :key="tarjeta.id">
+                                <article class="tarjeta-datos">
+                                    <h4 x-text="tarjeta.titulo"></h4>
+                                    
+                                    <template x-if="!tarjeta.esLectura">
+                                        <p class="valor" x-text="tarjeta.valor"></p>
+                                    </template>
+
+                                    <template x-if="tarjeta.esLectura">
+                                        <div>
+                                            <p class="valor" x-text="textoFechaUltimaLectura()"></p>
+                                            <template x-if="ultimaLectura">
+                                                <div>
+                                                    <span class="valor" x-text="textoSensorUltimaLectura()"></span><br>
+                                                    <span class="valor" x-text="textoValorUltimaLectura()"></span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </article>
+                            </template>
+                        </div>
+                    </section>
+                </div>
+            </template>
+        </main>
+
+        <footer>
+            <p>© Mi Invernadero. Desarrollo web.</p>
+        </footer>
+  
+    <script src="js/repositorios/SensorRepository.js"></script>
+    <script src="js/repositorios/LocalStorageSensorRepository.js"></script>
+    <script src="js/repositorios/LecturaRepository.js"></script>
+    <script src="js/repositorios/LocalStorageLecturaRepository.js"></script>
+    <script src="js/repositorios/CultivoRepository.js"></script>
+    <script src="js/repositorios/LocalStorageCultivoRepository.js"></script>
+    <script src="js/repositorios/invernaderoRepository.js"></script>
+    <script src="js/repositorios/LocalStorageInvernaderoRepository.js"></script>
+    <script src="js/repositorios/UsuarioRepository.js"></script>
+    <script src="js/repositorios/LocalStorageUsuarioRepository.js"></script>
+
+    <script src="js/servicios/SensorService.js"></script>
+    <script src="js/servicios/LecturaService.js"></script>
+    <script src="js/servicios/CultivoService.js"></script>
+    <script src="js/servicios/InvernaderoService.js"></script>
+    <script src="js/servicios/UsuarioService.js"></script>
+    <script src="js/servicios/EstadisticaService.js"></script>
+
+    <script src="js/controladores/SensorController.js"></script>
+    <script src="js/controladores/LecturaController.js"></script>
+    <script src="js/controladores/CultivoController.js"></script>
+    <script src="js/controladores/InvernaderoController.js"></script>
+    <script src="js/controladores/adminUsuariosController.js"></script>
+    <script src="js/controladores/adminEstadisticaController.js"></script>
+    <script src="js/controladores/conexionController.js"></script>
+
+     <script src="js/app.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('sw.js')
+                        .catch(err => console.error('Error al registrar SW:', err));
+                });
+            }
+        </script>
+    </body>
 </html>

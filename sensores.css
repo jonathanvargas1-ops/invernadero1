@@ -6,26 +6,26 @@ h1{
 }
 th{
     font-family:sans-serif;
-    border:solid;
+    border:1px solid black;
     padding:10px;
-
+    background-color: #f0caa5f9;
 }
 td{
-    background-color: rgb(228, 183, 121);
-    border:solid;
-    padding:20px;
+    background-color: rgb(251, 251, 250);
+    border:1px solid black;
+    padding:15px;
 }
 body{
-    background-color: rgb(223, 214, 193);
+    background-color: rgb(251, 251, 250);
     margin:0
 }
 
 caption{
     font-size: 20px;
     font-family:sans-serif;
-    background-color:#d67412f9;
-    border-radius: 10px;
-    
+    background-color:#f0caa5f9;
+    border: 1px solid black;
+    padding: 8px;
 }
 table{
     border-collapse: collapse;
@@ -44,10 +44,177 @@ button{
     cursor:pointer;
 }
 
-@media(max-width:480px){
-    table{
-        width:100%;
+header {
+    background-color: #f0caa5f9;
+    padding: 15px 16px;
+    border-bottom: 1px solid black;
+    font-family: sans-serif;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+nav a.activo {
+    border-bottom: 2px solid black;
+}
+
+main {
+    padding: 0 16px 40px 16px;
+}
+
+section {
+    margin-top: 50px;
+    font-family: sans-serif;
+}
+
+select {
+    margin-bottom: 20px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.grafico {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 200px;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    padding: 0 10px;
+    overflow: hidden; 
+}
+
+.barra {
+    flex: 1;
+       background-color: #c98a5a;
+    border-radius: 6px 6px 0 0;
+    color: white;
+    text-align: center;
+    padding-top: 5px;
+    max-height: 100%;
+}
+
+.dias {
+    display: flex;
+    gap: 8px;
+    padding: 5px 12px;
+    font-size: 12px;
+}
+
+.dias span {
+    flex: 1;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    border-top: 1px solid black;
+    background-color: #f0caa5f9;
+    font-family: sans-serif;
+}
+
+.filtro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filtro button {
+    margin-top: 0;
+}
+td button {
+    margin: 0 5px;
+}
+
+
+.sensores-contenedor {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+
+.sensores-tabla {
+    min-width: 0;
+    overflow-x: auto;
+}
+
+
+.cuadro-formulario {
+    background-color: #f0caa5;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    font-family: sans-serif;
+}
+
+.cuadro-formulario h3 {
+    margin: 0 0 8px;
+}
+
+
+.formulario-sensor {
+    display: grid;
+    gap: 8px;
+}
+
+.formulario-sensor input,
+.formulario-sensor select {
+    font-size: 16px;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 0;
+}
+
+.formulario-sensor button {
+    margin-top: 8px;
+    padding: 10px;
+}
+
+@media (min-width: 768px) {
+    .sensores-contenedor {
+        grid-template-columns: 2fr 1fr;
+    }
+
+    header {
+        padding: 15px 40px;
+    }
+     nav ul {
+        gap:20px;
+    }
+
+    main {
+        padding: 0 40px 40px 40px;
+    }
+
+    .grafico {
+        gap: 20px;
+        padding: 0 20px;
+    }
+
+    .dias {
+        gap: 20px;
+        padding:5px 22px;
+        font-size: 16px;
     }
 }
+
+
 
 
