@@ -1,4 +1,4 @@
-const CACHE_NAME = 'invernadero-cache-v2';
+const CACHE_NAME = 'invernadero-cache-v3';
 const urlsToCache = [
   'admin_usuarios.html',
   'admin_estadistica.html',
@@ -38,7 +38,10 @@ const urlsToCache = [
   'js/controladores/InvernaderoController.js',
   'js/controladores/LoginController.js',
   'imagenes/login22.png',
-  'https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js'
+  'https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js',
+    'js/controladores/conexionController.js',
+  'imagenes/icono-192.png',
+  'imagenes/icono-512.png',
 
 ];
 
