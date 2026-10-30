@@ -23,11 +23,17 @@
         Estás sin conexión!!
     </p>
 
-    <main x-data="cultivosController">
+    <main x-data="cultivosController"
+          @pedir-editar="iniciarEdicion($event.detail)"
+          @pedir-eliminar="eliminarCultivo($event.detail)"
+          @crear-cultivo="crearCultivo($event.detail)"
+          @guardar-cultivo="guardarEdicion($event.detail)"
+          @cancelar-edicion="cancelarEdicion()">
         <h2 class="titulo-pagina">Gestión de cultivos</h2>
 
-        <div x-show="error" class="mensaje-error">
+        <div x-show="error" class="estado-error">
             <p x-text="error"></p>
+            <button type="button" @click="cargarCultivos()">Reintentar</button>
         </div>
 
         <section>
@@ -36,20 +42,20 @@
 
                 <div class="busqueda-cultivos">
                     <label for="filtro-cultivo">Filtrar por tipo/estado:</label>
-                    <input 
-                        type="text" 
-                        id="filtro-cultivo" 
+                    <input
+                        type="text"
+                        id="filtro-cultivo"
                         placeholder="Ingrese tipo o estado"
                         x-model="filtro"
                         @input.debounce.300ms="cargarCultivos()"
                     >
                 </div>
 
-                <div x-show="cargando" class="mensaje-carga">
+                <div x-show="cargando" class="estado-cargando">
                     <p>Cargando cultivos...</p>
                 </div>
 
-                <div x-show="mostrarVacio()" class="mensaje-vacio">
+                <div x-show="mostrarVacio()" class="estado-vacio">
                     <p>No hay cultivos disponibles.</p>
                 </div>
 
@@ -64,13 +70,13 @@
                     </thead>
                     <tbody id="lista-cultivos">
                         <template x-for="cultivo in cultivos" :key="cultivo.id">
-                            <tr>
+                            <tr x-data="filaCultivo">
                                 <td x-text="cultivo.nombre"></td>
                                 <td x-text="cultivo.tipo"></td>
                                 <td x-text="cultivo.estado"></td>
                                 <td>
-                                    <button class="btn-tabla" @click="iniciarEdicion(cultivo)">editar</button>
-                                    <button class="btn-tabla" @click="eliminarCultivo(cultivo.id)">eliminar</button>
+                                    <button class="btn-tabla" @click="avisarEditar(cultivo)">editar</button>
+                                    <button class="btn-tabla" @click="avisarEliminar(cultivo.id)">eliminar</button>
                                 </td>
                             </tr>
                         </template>
@@ -82,15 +88,18 @@
                 <div x-show="mostrarFormAgregar()">
                     <h3>¿Agregar cultivo?</h3>
                     <p>Ingresar información del nuevo cultivo:</p>
-                    <form id="form-cultivo" @submit.prevent="agregarCultivo()">
+                    <form id="form-cultivo"
+                          x-data="formularioCultivo()"
+                          @cultivo-guardado.window="limpiar()"
+                          @submit.prevent="crear()">
                         <label for="nombre">Nombre del cultivo:</label>
-                        <input type="text" id="nombre" name="nombre" x-model="nuevoNombre" required>
+                        <input type="text" id="nombre" name="nombre" x-model="borrador.nombre" required>
 
                         <label for="tipo">Tipo de cultivo:</label>
-                        <input type="text" id="tipo" name="tipo" x-model="nuevoTipo" required>
+                        <input type="text" id="tipo" name="tipo" x-model="borrador.tipo" required>
 
                         <label for="estado">Estado del cultivo:</label>
-                        <input type="text" id="estado" name="estado" x-model="nuevoEstado" required>
+                        <input type="text" id="estado" name="estado" x-model="borrador.estado" required>
 
                         <button type="submit">Agregar Cultivo</button>
                     </form>
@@ -100,15 +109,15 @@
                     <div>
                         <h3>Editar cultivo</h3>
                         <p>Modificar información del cultivo seleccionado:</p>
-                        <form @submit.prevent="guardarEdicion()">
-                            <label>Nombre del cultivo:</label>
-                            <input type="text" x-model="editandoCultivo.nombre" required>
+                        <form x-data="formularioCultivo(cultivoEnEdicion)" @submit.prevent="guardar()">
+                            <label for="editar-nombre">Nombre del cultivo:</label>
+                            <input type="text" id="editar-nombre" x-model="borrador.nombre" required>
 
-                            <label>Tipo de cultivo:</label>
-                            <input type="text" x-model="editandoCultivo.tipo" required>
+                            <label for="editar-tipo">Tipo de cultivo:</label>
+                            <input type="text" id="editar-tipo" x-model="borrador.tipo" required>
 
-                            <label>Estado del cultivo:</label>
-                            <input type="text" x-model="editandoCultivo.estado" required>
+                            <label for="editar-estado">Estado del cultivo:</label>
+                            <input type="text" id="editar-estado" x-model="borrador.estado" required>
 
                             <div class="acciones">
                                 <button type="submit">Guardar Cambios</button>
