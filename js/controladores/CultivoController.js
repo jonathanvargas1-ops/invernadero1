@@ -4,32 +4,23 @@ function cultivosController(cultivoService) {
         cargando: false,
         error: null,
         filtro: '',
-
-        nuevoNombre: '',
-        nuevoTipo: '',
-        nuevoEstado: '',
-
-        editandoCultivo: null,
+        cultivoEnEdicion: null,
 
         async init() {
             await this.cargarCultivos();
         },
 
-        
         showLoading(estado) {
             this.cargando = estado;
         },
+
         showError(mensaje) {
             this.error = mensaje;
         },
-        hideError() {
-            this.error = null;
-        },
 
-        
         async cargarCultivos() {
             this.showLoading(true);
-            this.hideError();
+            this.showError(null);
             try {
                 this.cultivos = await cultivoService.obtenerCultivos(this.filtro);
             } catch (err) {
@@ -40,68 +31,101 @@ function cultivosController(cultivoService) {
             }
         },
 
-        async agregarCultivo() {
-            this.hideError();
+        async crearCultivo(nuevoCultivo) {
+            this.showError(null);
             try {
-                await cultivoService.crearCultivo({
-                    nombre: this.nuevoNombre,
-                    tipo: this.nuevoTipo,
-                    estado: this.nuevoEstado
-                });
-                this.nuevoNombre = '';
-                this.nuevoTipo = '';
-                this.nuevoEstado = '';
+                await cultivoService.crearCultivo(nuevoCultivo);
                 await this.cargarCultivos();
-            } catch (error) {
-                this.showError('Error al agregar el cultivo: ' + error.message);
+                this.$dispatch('cultivo-guardado');
+            } catch (err) {
+                this.showError('Error al agregar el cultivo: ' + err.message);
             }
         },
 
-        iniciarEdicion(cultivo) {
-            this.hideError();
-            this.editandoCultivo = { ...cultivo };
+        iniciarEdicion(detalle) {
+            this.showError(null);
+            this.cultivoEnEdicion = detalle.cultivo;
         },
 
-        cancelar() {
-            this.editandoCultivo = null;
-            this.hideError();
+        cancelarEdicion() {
+            this.cultivoEnEdicion = null;
+            this.showError(null);
         },
 
-        async guardarEdicion() {
-            if (!this.editandoCultivo) return;
-            this.hideError();
+        async guardarEdicion(datosBorrador) {
+            this.showError(null);
             try {
-                await cultivoService.actualizarCultivo(this.editandoCultivo);
-                this.editandoCultivo = null;
+                await cultivoService.actualizarCultivo(datosBorrador);
+                this.cultivoEnEdicion = null;
                 await this.cargarCultivos();
-            } catch (error) {
-                this.showError('Error al guardar la edición: ' + error.message);
+            } catch (err) {
+                this.showError('Error al guardar los cambios: ' + err.message);
             }
         },
 
-        async eliminarCultivo(id) {
+        async eliminarCultivo(detalle) {
             if (!confirm('¿Estás seguro de que deseas eliminar este cultivo?')) return;
-            this.hideError();
+            this.showError(null);
             try {
-                await cultivoService.eliminarCultivo(id);
+                await cultivoService.eliminarCultivo(detalle.id);
                 await this.cargarCultivos();
-            } catch (error) {
-                this.showError('Error al eliminar el cultivo: ' + error.message);
+            } catch (err) {
+                this.showError('Error al eliminar el cultivo: ' + err.message);
             }
         },
 
-        
         mostrarVacio() {
             return !this.cargando && this.cultivos.length === 0;
         },
+
         mostrarTabla() {
             return !this.cargando && this.cultivos.length > 0;
         },
+
         estaEditando() {
-            return this.editandoCultivo !== null;
+            return this.cultivoEnEdicion !== null;
         },
+
         mostrarFormAgregar() {
-            return this.editandoCultivo === null;
+            return this.cultivoEnEdicion === null;
+        }
+    };
+}
+
+function filaCultivoController() {
+    return {
+        avisarEditar(cultivo) {
+            this.$dispatch('pedir-editar', { cultivo: cultivo });
+        },
+        avisarEliminar(id) {
+            this.$dispatch('pedir-eliminar', { id: id });
+        }
+    };
+}
+
+function formularioCultivo(datosIniciales = {}) {
+    return {
+        borrador: {
+            id: datosIniciales.id,
+            nombre: datosIniciales.nombre || '',
+            tipo: datosIniciales.tipo || '',
+            estado: datosIniciales.estado || ''
+        },
+
+        crear() {
+            this.$dispatch('crear-cultivo', { ...this.borrador });
+        },
+
+        guardar() {
+            this.$dispatch('guardar-cultivo', { ...this.borrador });
+        },
+
+        cancelar() {
+            this.$dispatch('cancelar-edicion');
+        },
+
+        limpiar() {
+            this.borrador = { id: undefined, nombre: '', tipo: '', estado: '' };
         }
     };
 }
