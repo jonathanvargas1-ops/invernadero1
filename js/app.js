@@ -12,6 +12,8 @@ document.addEventListener('alpine:init', () => {
     const cultivoRepository = new LocalStorageCultivoRepository();
     const cultivoService = new CultivoService(cultivoRepository);
     Alpine.data('cultivosController', () => cultivosController(cultivoService));
+    Alpine.data('filaCultivo', () => filaCultivoController());
+    Alpine.data('formularioCultivo', formularioCultivo);
 
     const invernaderoRepository = new LocalStorageInvernaderoRepository();
     const invernaderoService = new InvernaderoService(invernaderoRepository);
