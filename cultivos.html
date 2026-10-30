@@ -8,6 +8,7 @@
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
+<<<<<<< HEAD
     <header>
         <h1>Mis cultivos</h1>
         <nav>
@@ -19,6 +20,47 @@
             </ul>
         </nav>
     </header>
+=======
+     <p class="aviso-sin-conexion" x-data="conexion" x-show="sin_conexion()">
+        Estás sin conexión!!
+           </p>
+
+<header>
+    <h1>Mis cultivos</h1>
+    <nav>
+        <ul>
+        <li><a href="invernadero.html">Invernadero</a></li>
+        <li><a href="cultivos.html" class="activo">Cultivos</a></li>
+        <li><a href="sensores.html">Sensores</a></li>
+        <li><a href="login.html">Cerrar sesión</a></li>
+        </ul>
+    </nav>
+</header>
+<main x-data="cultivosController">
+    <h2 class="titulo-pagina">Gestión de cultivos</h2>
+    <div x-show="error" class="mensaje-error">
+        <p x-text="error"></p>
+    </div>
+    <section>
+        <div class= "cuadroizquierdo">
+            <h3> Cultivos disponibles en el invernadero</h3>
+            <div class= "busqueda-cultivos">
+                <label for="filtro-cultivo">Filtrar por tipo/estado:</label>
+                <input 
+                       type="text" 
+                       id="filtro-cultivo" 
+                       placeholder="Ingrese tipo o estado"
+                       x-model="filtro"
+                       @input="filtrarCultivos()"
+                >
+            </div>
+            <div x-show="cargando" class="mensaje-carga">
+                <p>Cargando cultivos...</p>
+            </div>
+            <div x-show="!cargando && cultivos.length === 0" class="mensaje-vacio">
+                <p>No hay cultivos disponibles.</p>
+            </div>
+>>>>>>> 1df4751b264c1395e9e2119776a3f7a8129d3ae1
 
     <main x-data="cultivosController">
         <h2 class="titulo-pagina">Gestión de cultivos</h2>
@@ -149,6 +191,7 @@
     <script src="js/controladores/InvernaderoController.js"></script>
     <script src="js/controladores/adminUsuariosController.js"></script>
     <script src="js/controladores/adminEstadisticaController.js"></script>
+    <script src="js/controladores/conexionController.js"></script>
 
     
     <script src="js/app.js"></script>
