@@ -2,6 +2,7 @@
     font-family: sans-serif;
     box-sizing: border-box;
 }
+
 body {
     margin: 0;
     background-color: rgb(251, 251, 250);
@@ -11,135 +12,217 @@ body {
 }
 
 header {
-    background-color: #f0caa5;
-    padding: 15px 40px;
+    background-color: #f0caa5f9;
+    padding: 15px 20px;
     border-bottom: 1px solid black;
 }
+
 header h1 {
     margin: 0 0 10px 0;
-    
+    font-size: 24px;
 }
+
 nav ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 4px 16px;
     margin: 0;
     padding: 0;
 }
+
 nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 6px;
     text-decoration: none;
     color: black;
     font-weight: bold;
 }
+
 nav a.activo {
     border-bottom: 2px solid black;
 }
-
+.aviso-sin-conexion {
+    margin: 0;
+    padding: 10px 20px;
+    background-color: #ffdddd;
+    color: #a00000;
+    border-bottom: 1px solid #a00000;
+    text-align: center;
+    font-weight: bold;
+}
 
 main {
-    padding: 32px 40px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
     flex: 1;
 }
-.titulo-pagina {
-    font-size: 32px;
-    margin: 0 0 24px;
-}
 
+.titulo-pagina {
+    font-size: 26px;
+    margin: 0 0 20px;
+}
 section {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 24px;
     align-items: start;
 }
 
-.cuadroizquierdo {
+.cuadroizquierdo,
+.cuadroderecho {
+    min-width: 0;
     background-color: #f0caa5;
     border: 1px solid black;
     border-radius: 10px;
-    padding: 24px;
-    min-width: 0;
+    padding: 16px;
+}
+.cuadroizquierdo {
+    overflow-x: auto;
 }
 
-.cuadroderecho{
-    background-color: #f0caa5;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 24px;
-    min-width: 0;
-}
 h3 {
-    font-size: 24px;
-    margin: 0 0 16px;
+    font-size: 20px;
+    margin: 0 0 12px;
 }
 
 p {
-    font-size: 18px;
+    font-size: 16px;
     margin: 0 0 8px;
 }
+
 label {
     display: block;
-    margin-top: 15px;
-    margin-bottom: 5px;
+    margin: 12px 0 4px;
     font-weight: bold;
 }
-input {
+
+input[type="text"] {
     width: 100%;
-    max-width: 100%;
-    height: 35px;
-    padding: 5px 10px;
+    min-height: 44px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: white;
     border: 1px solid black;
     border-radius: 6px;
-    background-color: white;
-    font-family: inherit;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
+
 .busqueda-cultivos {
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 15px;
+    margin: 0 0 16px;
 }
 
 form {
-    width: 90%;
+    width: 100%;
 }
 
 button {
-    font-family: inherit;
-    background-color: rgb(246, 245, 243);
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 16px;
+    font-weight: bold;
     color: black;
+    background-color: rgb(246, 245, 243);
     border: 1px solid black;
     border-radius: 6px;
     cursor: pointer;
-    font-weight: bold;
 }
-.btn-agregar {
-    display: block;
+
+button:hover {
+    background-color: white;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid #2c3e50;
+    outline-offset: 2px;
+}
+
+form > button[type="submit"] {
     width: 100%;
-    height: 40px;
-    margin-top: 25px;
-    font-size: 16px;
+    margin-top: 8px;
 }
-.btn-tabla {
-    padding: 5px 10px;
-    margin-right: 5px;
-    font-size: 14px;
+.acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.acciones button {
+    width: 100%;
 }
 table {
     border-collapse: collapse;
     width: 100%;
-    margin-top: 20px;
+    min-width: 480px;
+    margin-top: 12px;
     background-color: white;
 }
+
+th,
 td {
     border: 1px solid black;
-    padding: 10px;
+    padding: 8px;
+    text-align: left;
+    overflow-wrap: break-word;
 }
 
 th {
-    border: 1px solid black;
-    padding: 10px;
     background-color: #f0caa5f9;
-    text-align: left;
+}
+
+.btn-tabla {
+    display: block;
+    width: 100%;
+    min-width: 44px;
+    margin: 0 0 6px;
+    padding: 8px 10px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.btn-tabla:last-child {
+    margin-bottom: 0;
+}
+.mensaje-error,
+.mensaje-carga,
+.mensaje-vacio {
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+}
+
+.mensaje-error p,
+.mensaje-carga p,
+.mensaje-vacio p {
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.mensaje-error {
+    background-color: #ffdddd;
+    color: #a00000;
+    border: 1px solid #a00000;
+}
+
+.mensaje-carga {
+    background-color: white;
+    border: 1px solid #333;
+    color: #333;
+    text-align: center;
+}
+
+.mensaje-vacio {
+    background-color: white;
+    border: 1px dashed black;
+    color: #555;
+    text-align: center;
 }
 
 footer {
@@ -147,56 +230,87 @@ footer {
     padding: 20px;
     border-top: 1px solid black;
     background-color: #f0caa5f9;
-    width: 100%;
-    
 }
+
 footer p {
     margin: 0;
 }
+@media (min-width: 480px) {
+    .btn-tabla {
+        display: inline-block;
+        width: auto;
+        margin: 0 6px 6px 0;
+    }
 
- @media (max-width: 800px) {
-    section {
-        grid-template-columns: 1fr;
+    .acciones {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .acciones button {
+        width: auto;
+    }
+
+    form > button[type="submit"] {
+        width: auto;
     }
 }
-
-@media (max-width: 480px) {
+@media (min-width: 768px) {
     header {
-        padding: 15px 20px;
+        padding: 15px 40px;
     }
 
-    main {
-        padding: 24px 20px;
+    header h1 {
+        font-size: 28px;
     }
 
     nav ul {
-        flex-direction: column;
-        gap: 10px;
+        flex-wrap: nowrap;
+        gap: 20px;
     }
 
-    td .btn-tabla {
-        display: block;
-        margin: 0 0 6px;
+    nav a {
+        padding: 0;
+    }
+
+    .aviso-sin-conexion {
+        padding: 10px 40px;
+    }
+
+    main {
+        padding: 40px;
+    }
+
+    .titulo-pagina {
+        font-size: 32px;
+        margin-bottom: 24px;
+    }
+
+    .cuadroizquierdo,
+    .cuadroderecho {
+        padding: 24px;
+    }
+
+    h3 {
+        font-size: 24px;
+        margin-bottom: 16px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    table {
+        min-width: 0;
+    }
+
+    th,
+    td {
+        padding: 10px;
     }
 }
-.mensaje-error {
-    background-color: #ffdddd;
-    color: #a00000;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-}
-.mensaje-carga, .mensaje-vacio {
-    padding: 15px;
-    text-align: center;
-    color: #555; 
-}
-.acciones-formulario {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-}
-.btn-cancelar {
-    background-color: #777777;
-    color: white;
+@media (min-width: 1024px) {
+    section {
+        grid-template-columns: 2fr 1fr;
+    }
 }
