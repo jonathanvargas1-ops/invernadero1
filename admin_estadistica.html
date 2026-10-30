@@ -31,7 +31,7 @@
                 <p x-text="showError"></p>
             </div>
 
-            <div x-show="!showLoading">
+            <div x-show="mostrar_estadisticas()">
                 <article>
                     <h3>Usuarios Totales</h3>
                     <p x-text="estadisticas.totalUsuarios"></p>
@@ -59,20 +59,20 @@
     </footer>
 
     <script src="js/repositorios/UsuarioRepository.js"></script>
-<script src="js/repositorios/LocalStorageUsuarioRepository.js"></script>
-<script src="js/servicios/UsuarioService.js"></script>
-<script src="js/servicios/EstadisticaService.js"></script>
-<script src="js/controladores/SensorController.js"></script>
-<script src="js/controladores/FilaSensorController.js"></script>
-<script src="js/controladores/adminEstadisticaController.js"></script>
-<script src="js/app.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js');
-    });
-  }
-</script>
+    <script src="js/repositorios/LocalStorageUsuarioRepository.js"></script>
+    <script src="js/servicios/UsuarioService.js"></script>
+    <script src="js/servicios/EstadisticaService.js"></script>
+    <script src="js/controladores/SensorController.js"></script>
+    <script src="js/controladores/FilaSensorController.js"></script>
+    <script src="js/controladores/adminEstadisticaController.js"></script>
+    <script src="js/app.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js');
+        });
+      }
+    </script>
 </body>
 </html>
