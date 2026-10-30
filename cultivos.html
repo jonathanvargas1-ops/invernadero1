@@ -8,9 +8,6 @@
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <p class="aviso-sin-conexion" x-data="conexion" x-show="sin_conexion()">
-    Estás sin conexión!!
-</p>
     <header>
         <h1>Mis cultivos</h1>
         <nav>
@@ -22,6 +19,9 @@
             </ul>
         </nav>
     </header>
+    <p class="aviso-sin-conexion" x-data="conexion" x-show="sin_conexion()">
+        Estás sin conexión!!
+    </p>
 
     <main x-data="cultivosController">
         <h2 class="titulo-pagina">Gestión de cultivos</h2>
