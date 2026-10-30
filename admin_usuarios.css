@@ -1,62 +1,72 @@
-header{
-    background-color:#f0caa5f9;
-    text-align:center;
-    padding: 50px;
-   }
-body{
-    font-family:sans-serif;
-}
-ul{
-    list-style: none;
-    display:flex;
-    justify-content: center;
-    
-}
-li{
-    margin-left:20px;
-    background-color:rgb(223, 138, 47);
-    border-radius: 10px;
-    padding:12px;
-} 
-a{
-    text-decoration: none;
-    color:black;
-}
-section{
-    background-color: rgb(249, 255, 255);
-    padding:40px;
+body {
+    font-family: sans-serif;
+    background-color: #f0caa5f9;
+    margin: 0;
 }
 
-table{
+header {
+    background-color: #f0caa5f9;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+    align-items: center;
+}
+
+li {
+    background-color: rgb(223, 138, 47);
+    border-radius: 10px;
+    padding: 12px;
+    width: 80%;
+} 
+
+a {
+    text-decoration: none;
+    color: black;
+    display: block;
+}
+
+section {
+    background-color: rgb(249, 255, 255);
+    padding: 20px;
+}
+
+table {
     background-color: rgb(243, 246, 248);
     border-collapse: collapse;
     width: 100%;
+    font-size: 14px;
 }
-thead{
+
+thead {
     background-color: #f0caa5f9;
 }
-th{
-    border:solid;
-    padding:15px;
 
+th {
+    border: solid 1px black;
+    padding: 8px;
 }
-td{
-    border:solid;
-    padding: 15px;
+
+td {
+    border: solid 1px black;
+    padding: 8px;
     text-align: center;
     background-color: rgb(248, 246, 243);
-    
 }
-button{
+
+button {
     border-radius: 10px;
-    background-color:  rgb(173, 229, 246);
+    background-color: rgb(173, 229, 246);
     cursor: pointer;
-    padding:10px;
+    padding: 8px;
     text-align: center;
-}
-body{
-    background-color: #f0caa5f9;
-    margin:0;
+    margin: 2px;
 }
 
 footer {
@@ -66,15 +76,27 @@ footer {
     background-color: #f0caa5f9;
     font-family: sans-serif;
 }
-@media(max-width:480px){
-    table{
-        width: 100%;
-    }
-    th{
-        padding:5px;
 
+@media (min-width: 768px) {
+    header {
+        padding: 50px;
     }
-    td{
-        padding: 5px;
+
+    ul {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    li {
+        width: auto;
+        margin-left: 20px;
+    }
+
+    section {
+        padding: 40px;
+    }
+
+    th, td {
+        padding: 15px;
     }
 }
