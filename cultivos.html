@@ -5,8 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cultivos</title>
     <link rel="stylesheet" href="cultivos.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
+<<<<<<< HEAD
+    <header>
+        <h1>Mis cultivos</h1>
+        <nav>
+            <ul>
+                <li><a href="invernadero.html">Invernadero</a></li>
+                <li><a href="cultivos.html" class="activo">Cultivos</a></li>
+                <li><a href="sensores.html">Sensores</a></li>
+                <li><a href="login.html">Cerrar sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+=======
      <p class="aviso-sin-conexion" x-data="conexion" x-show="sin_conexion()">
         Estás sin conexión!!
            </p>
@@ -46,14 +60,45 @@
             <div x-show="!cargando && cultivos.length === 0" class="mensaje-vacio">
                 <p>No hay cultivos disponibles.</p>
             </div>
+>>>>>>> 1df4751b264c1395e9e2119776a3f7a8129d3ae1
 
-            <table x-show="!cargando && cultivos.length > 0">
-                <thead>
-                <tr>
-                   <th>Cultivo</th>
-                   <th>Tipo</th>
-                 <th>Estado</th>
-                 <th>Acciones</th>
+    <main x-data="cultivosController">
+        <h2 class="titulo-pagina">Gestión de cultivos</h2>
+
+        <div x-show="error" class="mensaje-error">
+            <p x-text="error"></p>
+        </div>
+
+        <section>
+            <div class="cuadroizquierdo">
+                <h3>Cultivos disponibles en el invernadero</h3>
+
+                <div class="busqueda-cultivos">
+                    <label for="filtro-cultivo">Filtrar por tipo/estado:</label>
+                    <input 
+                        type="text" 
+                        id="filtro-cultivo" 
+                        placeholder="Ingrese tipo o estado"
+                        x-model="filtro"
+                        @input.debounce.300ms="cargarCultivos()"
+                    >
+                </div>
+
+                <div x-show="cargando" class="mensaje-carga">
+                    <p>Cargando cultivos...</p>
+                </div>
+
+                <div x-show="mostrarVacio()" class="mensaje-vacio">
+                    <p>No hay cultivos disponibles.</p>
+                </div>
+
+                <table x-show="mostrarTabla()">
+                    <thead>
+                        <tr>
+                            <th>Cultivo</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="lista-cultivos">
@@ -70,52 +115,56 @@
                         </template>
                     </tbody>
                 </table>
-              
-            
-        </div>
-        <div class="cuadroderecho">
-            <div x-show="!editandoCultivo">
-                <h3>¿Agregar cultivo?</h3>
-                <p>Ingresar información del nuevo cultivo:</p>
-                <form id="form-cultivo" @submit.prevent="agregarCultivo()">
-                    <label for="nombre">Nombre del cultivo:</label>
-                    <input type="text" id="nombre" name="nombre" x-model="nuevoNombre" required>
-
-                    <label for="tipo">Tipo de cultivo:</label>
-                    <input type="text" id="tipo" name="tipo" x-model="nuevoTipo" required>
-
-                    <label for="estado">Estado del cultivo:</label>
-                    <input type="text" id="estado" name="estado" x-model="nuevoEstado" required>
-
-                    <button type="submit">Agregar Cultivo</button>
-                </form>
             </div>
-            <template x-if="editandoCultivo">
-            <div>
-                <h3>Editar cultivo</h3>
-                <p>Modificar información del cultivo seleccionado:</p>
-                <form @submit.prevent="guardarEdicion()">
-                    <label>Nombre del cultivo:</label>
-                    <input type="text" x-model="editandoCultivo.nombre" required>
 
-                    <label>Tipo de cultivo:</label>
-                    <input type="text" x-model="editandoCultivo.tipo" required>
+            <div class="cuadroderecho">
+                <div x-show="mostrarFormAgregar()">
+                    <h3>¿Agregar cultivo?</h3>
+                    <p>Ingresar información del nuevo cultivo:</p>
+                    <form id="form-cultivo" @submit.prevent="agregarCultivo()">
+                        <label for="nombre">Nombre del cultivo:</label>
+                        <input type="text" id="nombre" name="nombre" x-model="nuevoNombre" required>
 
-                    <label>Estado del cultivo:</label>
-                    <input type="text" x-model="editandoCultivo.estado" required>
-            <div class="acciones">
-                    <button type="submit">Guardar Cambios</button>
-                    <button type="button" @click="cancelar()">Cancelar</button>
-                  </div>
-                </form>
+                        <label for="tipo">Tipo de cultivo:</label>
+                        <input type="text" id="tipo" name="tipo" x-model="nuevoTipo" required>
+
+                        <label for="estado">Estado del cultivo:</label>
+                        <input type="text" id="estado" name="estado" x-model="nuevoEstado" required>
+
+                        <button type="submit">Agregar Cultivo</button>
+                    </form>
+                </div>
+
+                <template x-if="estaEditando()">
+                    <div>
+                        <h3>Editar cultivo</h3>
+                        <p>Modificar información del cultivo seleccionado:</p>
+                        <form @submit.prevent="guardarEdicion()">
+                            <label>Nombre del cultivo:</label>
+                            <input type="text" x-model="editandoCultivo.nombre" required>
+
+                            <label>Tipo de cultivo:</label>
+                            <input type="text" x-model="editandoCultivo.tipo" required>
+
+                            <label>Estado del cultivo:</label>
+                            <input type="text" x-model="editandoCultivo.estado" required>
+
+                            <div class="acciones">
+                                <button type="submit">Guardar Cambios</button>
+                                <button type="button" @click="cancelar()">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </template>
             </div>
-          </template>
-        </div>
-    </section>
-</main>
-<footer>
-    <p>&copy; Mi invernadero. Desarrollo Web</p>
-</footer>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; Mi invernadero. Desarrollo Web</p>
+    </footer>
+
+    
     <script src="js/repositorios/SensorRepository.js"></script>
     <script src="js/repositorios/LocalStorageSensorRepository.js"></script>
     <script src="js/repositorios/LecturaRepository.js"></script>
@@ -127,6 +176,7 @@
     <script src="js/repositorios/UsuarioRepository.js"></script>
     <script src="js/repositorios/LocalStorageUsuarioRepository.js"></script>
 
+    
     <script src="js/servicios/SensorService.js"></script>
     <script src="js/servicios/LecturaService.js"></script>
     <script src="js/servicios/CultivoService.js"></script>
@@ -134,6 +184,7 @@
     <script src="js/servicios/UsuarioService.js"></script>
     <script src="js/servicios/EstadisticaService.js"></script>
 
+    
     <script src="js/controladores/SensorController.js"></script>
     <script src="js/controladores/LecturaController.js"></script>
     <script src="js/controladores/CultivoController.js"></script>
@@ -142,16 +193,17 @@
     <script src="js/controladores/adminEstadisticaController.js"></script>
     <script src="js/controladores/conexionController.js"></script>
 
-     <script src="js/app.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-     <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js');
-    });
-  }
-</script>
+    
+    <script src="js/app.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .catch(err => console.error('Error al registrar SW:', err));
+            });
+        }
+    </script>
 </body>
 </html>
-
-                
