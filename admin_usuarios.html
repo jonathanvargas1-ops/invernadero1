@@ -20,7 +20,9 @@
         </nav>
     </header>
 
-<main x-data="adminUsuarios">
+<main x-data="adminUsuarios"
+@eliminar-usuario="eliminar($event.detail)"
+      @editar-usuario="se_empieza_edicion($event.detail)">
     <section>
         <h2>Lista de Usuarios</h2>
         <p>Selecciona un usuario para ver sus recursos o eliminar su cuenta</p>
@@ -51,19 +53,45 @@
             <tbody>
                 <template x-for="u in usuarios" :key="u.id">
                    
-                    <tr x-data="{ usuario: u }" @eliminar-usuario.window="eliminar($event.detail)">
-                        <td x-text="usuario.nombre"></td>
-                        <td x-text="usuario.correo"></td>
-                        <td x-text="usuario.rol"></td>
-                        <td>
-                            <button type="button">Ver Recursos</button>
-                            <button type="button" class="btn-eliminar" @click="$dispatch('eliminar-usuario', usuario.id)">Eliminar</button>
-                        </td>
-                    </tr>
+                    <tr>
+    <td x-text="u.nombre"></td>
+    <td x-text="u.correo"></td>
+    <td x-text="u.rol"></td>
+    <td>
+        <button type="button" @click="$dispatch('editar-usuario', u)">Editar</button>
+        <button type="button" class="btn-eliminar" @click="$dispatch('eliminar-usuario', u.id)">Eliminar</button>
+    </td>
+</tr>
                 </template>
             </tbody>
-        </table>
+        
+                </table>
+
+        <div class="cuadro-formulario">
+            <h3 x-text="titulo_formulario()"> </h3>
+            <form @submit.prevent="enviar_formulario()">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" x-model="nuevoUsuario.nombre" required>
+
+                <label for="correo">Correo:</label>
+                <input type="email" id="correo" name="correo" x-model="nuevoUsuario.correo" required>
+
+                <label for="clave">Contraseña:</label>
+                <input type="password" id="clave" name="clave" x-model="nuevoUsuario.clave" required>
+
+                <label for="rol">Rol:</label>
+                <select id="rol" name="rol" x-model="nuevoUsuario.rol" required>
+                    <option value="usuario">usuario</option>
+                    <option value="admin">admin</option>
+                </select>
+
+               <button type="submit" x-text="texto_boton()"></button>
+    <button type="button" x-show="esta_editando()" @click="cancelar_edicion()">Cancelar</button>
+            </form>
+        </div>
+
     </section>
+
 </main>
 
     <footer>
