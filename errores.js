@@ -38,3 +38,5 @@ return err;
     const mensaje=status===500?'Error interno del servidor':errorTraducido.message;
     res.status(status).json({error:mensaje});
 }
+
+module.exports = { manejarErrores, ErrorApi };
