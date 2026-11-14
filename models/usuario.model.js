@@ -21,7 +21,6 @@ const esquema = new mongoose.Schema({
         enum: ['admin', 'usuario'],
         default: 'usuario'
     }
-
-
-
 });
+
+module.exports = mongoose.model('Usuario', esquema);
