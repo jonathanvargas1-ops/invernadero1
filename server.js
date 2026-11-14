@@ -15,4 +15,14 @@ async function iniciarServidor() {
     await mongoose.connect(process.env.MONGODB_URI);
     
         console.log('conectado a la base de datos');
-    };
+
+        
+        app.listen(PORT, (error) => {
+        if(error) throw error;
+        console.log(`Servidor escuchando en http://localhost:${PORT}`);
+    });
+
+}
+
+iniciarServidor();
+    
