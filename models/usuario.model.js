@@ -16,6 +16,11 @@ const esquema = new mongoose.Schema({
         required: [true, 'El nombre es obligatorio'],
         trim: true
     },
+    rol: {
+        type: String,
+        enum: ['admin', 'usuario'],
+        default: 'usuario'
+    }
 
 
 
