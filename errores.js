@@ -27,4 +27,14 @@ class ErrorApi extends Error{
         /* msj.join(', ') une todos los mensajes con una coma y un espacio, */
 }
 return err;
+    }
+
+   function manejarErrores(err,req,res,next){
+    /* tiene que tener 4 parametros para que Express lo reconozca como un manejador de errores, 
+    err:el error que llego , req:la solicitud que genero el error, res:la respuesta, next:no lo usaremos  */
+    console.error(err);/* escribe el error completo en la terminal donde corre el servidor */
+    const errorTraducido = traducirMongoose(err);
+    const status = errorTraducido.status || 500;/* los erroes tienen estatus , pero lo que no le ponemos el 500  */
+    const mensaje=status===500?'Error interno del servidor':errorTraducido.message;
+    res.status(status).json({error:mensaje});
 }
