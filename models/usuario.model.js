@@ -7,6 +7,15 @@ const esquema = new mongoose.Schema({
         unique: true,
         trim: true
     },
+    hash: {
+        type: String,
+        required: [true, 'La clave es obligatorio']
+    },
+    nombre: {
+        type: String,
+        required: [true, 'El nombre es obligatorio'],
+        trim: true
+    },
 
 
 
